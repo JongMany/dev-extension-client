@@ -5,8 +5,13 @@ export interface Signin {
 }
 
 export interface Signup {
-  apiKey: string;
-  password: string;
-  email: string;
-  nickname: string;
+  apiKey: SignupItemForm;
+  password: SignupItemForm;
+  email: SignupItemForm;
+  nickname: SignupItemForm;
 }
+
+type SignupItemForm = {
+  text: string;
+  checkDuplicate: boolean;
+};

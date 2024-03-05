@@ -6,7 +6,7 @@ export default function Page() {
 
   return (
     <main>
-      메인 화면
+      <h1>Study Log | 당신의 개발 시간을 관리해드립니다.</h1>
       <TestButton />
     </main>
   );

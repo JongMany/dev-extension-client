@@ -6,6 +6,7 @@ const menuItems = [
   { text: "대시보드", href: "/dashboard" },
   { text: "목표", href: "/goal" },
   { text: "랭킹", href: "/rank" },
+  { text: "프로필", href: "/profile" },
 ];
 
 export const Menu = () => {
