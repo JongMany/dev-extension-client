@@ -1,10 +1,13 @@
 import { auth } from "@/auth";
-import { NextResponse } from "next/server";
+// export { default } from "next-auth/middleware";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function middleware() {
+export async function middleware(request: NextRequest) {
+  // console.log("middleware", request);
   const session = await auth();
-  console.log("middleware", session);
+  // console.log("middleware", session);
   if (!session) {
+    // console.log("redirect!");
     return NextResponse.redirect("http://localhost:3000/");
   }
 }

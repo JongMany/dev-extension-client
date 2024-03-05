@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation";
 import { type Signin } from "@/models/auth/auth.model";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 // import { signin } from "@/app/(auth)/(signin)/_utils/signin";
 
 type Props = {
@@ -9,6 +9,7 @@ type Props = {
 
 export default function SigninButton({ form }: Props) {
   const router = useRouter();
+  const session = useSession();
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     // const data = await signin(form);
@@ -18,7 +19,6 @@ export default function SigninButton({ form }: Props) {
       apiKey: form.apiKey,
       redirect: false,
     });
-    console.log(response);
     // console.log(data);
     if (response?.error) {
       console.log(response.error);
