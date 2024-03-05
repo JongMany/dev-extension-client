@@ -1,4 +1,4 @@
-import TanstackQueryProvider from "@/components/TanstackQueryProvider";
+import TanstackQueryProvider from "@/components/providers/TanstackQueryProvider";
 import { SessionProvider } from "next-auth/react";
 import { PropsWithChildren } from "react";
 
