@@ -9,7 +9,8 @@ export default function TestButton() {
   const onClickHandler = async () => {
     if (session && session.data) {
       const acessToken = localStorage.getItem("accessToken");
-      const res = await fetchExtended(`/user/get-apiKey`, {
+      // const res = await fetchExtended(`/user/get-apiKey`, {
+      const res = await fetchExtended(`/goal/all`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${acessToken}`,

@@ -1,3 +1,9 @@
+import Link from "next/link";
+
 export default function GoalPage() {
-  return <main>목표 페이지</main>;
+  return (
+    <main>
+      <Link href="/goal/create">목표 생성</Link>
+    </main>
+  );
 }

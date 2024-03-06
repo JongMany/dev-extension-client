@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  type ChangeEventHandler,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
+import { type ChangeEventHandler, useState } from "react";
 import { type Signup } from "@/models/auth/auth.model";
 import SignupButton from "@/app/(auth)/signup/_components/SignupButton";
 import CheckDuplicateButton from "@/app/(auth)/signup/_components/CheckDuplicateButton";
