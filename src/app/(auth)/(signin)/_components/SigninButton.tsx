@@ -19,7 +19,7 @@ export default function SigninButton({ form }: Props) {
       apiKey: form.apiKey,
       redirect: false,
     });
-    // console.log(data);
+    console.log(response);
     if (response?.error) {
       console.log(response.error);
     } else {

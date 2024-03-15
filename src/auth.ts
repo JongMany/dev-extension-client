@@ -16,6 +16,7 @@ export const {
   providers: [
     CredentialsProvider({
       authorize: async (credentials, req) => {
+        console.log("credentials", credentials);
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signin`,
           {
@@ -51,7 +52,7 @@ export const {
             });
           }
           const data = await response.json();
-          // console.log(data);
+          console.log("data", data);
           //
           return {
             ...data,
@@ -67,17 +68,34 @@ export const {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        // console.log("user", user, (user as any)?.accessToken);
+    async jwt({ token, user, trigger, session }) {
+      /*       if (user) {
         (token as any).accessToken = (user as any)?.accessToken;
+      } */
+      console.log("triggerJWT", trigger);
+      if (trigger === "update") {
+        return { ...token, ...session.user };
       }
-      return Promise.resolve(token);
+      return { ...token, ...user };
+      // return Promise.resolve(token);
     },
-    async session({ session, token }) {
+    async session({ session, token, trigger, user }) {
+      // console.log("token", token);
       // console.log("token", token);
       // console.log("session", session, token);
-      (session as any).accessToken = token.accessToken;
+      /*    if (token.accessToken) {
+        (session as any).accessToken = token.accessToken;
+      }
+      console.log("trigger");
+      if (trigger === "update") {
+        console.log("session", session, "newSession", newSession);
+        const accessToken = session.accessToken;
+        session.accessToken = accessToken;
+        (token as any).accessToken = accessToken;
+        console.log("session", session);
+      }
+      return session; */
+      (session as any).user = token;
       return session;
     },
   },

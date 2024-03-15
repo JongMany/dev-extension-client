@@ -1,11 +1,12 @@
 "use client";
 
 import { fetchExtended } from "@/lib/fetchExtended";
-import { fetchTest } from "@/lib/test";
 import { useSession } from "next-auth/react";
 
 export default function TestButton() {
   const session = useSession();
+  console.log(session);
+
   const onClickHandler = async () => {
     if (session && session.data) {
       const acessToken = localStorage.getItem("accessToken");

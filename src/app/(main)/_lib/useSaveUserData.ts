@@ -5,7 +5,7 @@ export default function useSaveUserData() {
   const session = useSession();
   useEffect(() => {
     if (session && session.data) {
-      localStorage.setItem("accessToken", session.data.accessToken);
+      localStorage.setItem("accessToken", session.data.user.accessToken);
       localStorage.setItem("email", session.data.user.email);
     }
   }, [session]);

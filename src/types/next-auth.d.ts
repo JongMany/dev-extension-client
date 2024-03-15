@@ -6,7 +6,9 @@ declare module "next-auth" {
       id: number;
       name: string;
       email: string;
+      accessToken: string;
+      nickname: string;
+      apiKey: string;
     };
-    accessToken: string;
   }
 }
