@@ -1,18 +1,6 @@
-"use client";
-
 import { useGetAllGoals } from "@/app/(main)/goal/_lib/getAllGoals";
 import { Goals } from "@/models/goals/goals.model";
-import { useSession } from "next-auth/react";
-import { PropsWithChildren, useContext } from "react";
-import { createContext } from "react";
-
-export default function GoalContainer() {
-return (
-    <GoalProvider>
-      <GoalProvider.List></GoalProvider.List>
-    </GoalProvider>
-  );
-}
+import { PropsWithChildren, createContext, useContext } from "react";
 
 type GoalContextType = {
   goals: Goals | undefined;
@@ -23,7 +11,7 @@ type GoalContextType = {
 const GoalContext = createContext<GoalContextType | null>(null);
 const useGoalContext = () => useContext(GoalContext);
 
-function GoalProvider({ children }: PropsWithChildren) {
+export default function GoalProvider({ children }: PropsWithChildren) {
   const { data, isFetching, isError } = useGetAllGoals();
 
   const providedValue = { goals: data, isFetching, isError };
@@ -39,6 +27,7 @@ GoalProvider.List = GoalList;
 
 function GoalList() {
   const { goals, isFetching, isError } = useGoalContext()!;
+  console.log(goals);
 
   if (isFetching) {
     return <div>로딩중...</div>;
@@ -49,10 +38,29 @@ function GoalList() {
   if (goals?.goals.length === 0) {
     return <div>목표가 없습니다.</div>;
   } else {
-    return goals?.goals.map((goal) => <GoalItem key={goal.id} />);
+    return goals?.goals.map((goal) => <GoalItem key={goal.id} goal={goal} />);
   }
 }
 
-function GoalItem() {
-  return <></>;
+type Props = {
+  goal: any;
+};
+function GoalItem({ goal }: Props) {
+  return (
+    <article className="border-2 border-black px-4 py-2 rounded-md shadow-xl hover:shadow-2xl">
+      <h2 className="font-bold text-l">프로젝트명 - {goal.projectName}</h2>
+      <p>일정 - {goal.description}</p>
+      <p>생성일자 - {goal.date}</p>
+      <p>마감기간 - {goal.due}</p>
+      <div>
+        <input
+          id="completed"
+          name="completed"
+          type="checkbox"
+          checked={goal.isCompleted}
+        />
+        <label htmlFor="completed">완료</label>
+      </div>
+    </article>
+  );
 }

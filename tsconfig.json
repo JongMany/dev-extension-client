@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "types": [
+      "@testing-library/jest-dom",
+      "vitest/globals"
+    ],
     "target": "es5",
     "lib": [
       "dom",
@@ -49,9 +53,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "jest.setup.js"
+    "vitest.setup.js"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "cypress.config.ts"
   ]
 }

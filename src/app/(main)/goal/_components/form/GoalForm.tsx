@@ -1,6 +1,7 @@
 "use client";
-import Input from "@/app/(main)/goal/_components/Input";
-import SubmitButton from "@/app/(main)/goal/_components/SubmitButton";
+import Input from "@/app/(main)/goal/_components/form/Input";
+import SubmitButton from "@/app/(main)/goal/_components/form/SubmitButton";
+import BackButton from "@/components/shared/button/BackButton";
 import React, { ChangeEvent } from "react";
 
 export default function GoalForm() {
@@ -16,6 +17,7 @@ export default function GoalForm() {
         <Input placeholder="목표" />
         <Input placeholder="날짜" type="date" onChange={onChangeHandler} />
         <SubmitButton />
+        <BackButton />
       </form>
     </section>
   );

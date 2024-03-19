@@ -100,7 +100,6 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
 };
 
 export const useFetch = () => {
-  // const session = useSession();
   return {
     fetch: useCheckTokenInClient({
       baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
@@ -110,4 +109,5 @@ export const useFetch = () => {
       },
     }),
   };
+  // return { fetch };
 };
