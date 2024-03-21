@@ -52,7 +52,7 @@ export const {
             });
           }
           const data = await response.json();
-          console.log("data", data);
+          // console.log("data", data);
           //
           return {
             ...data,
@@ -72,7 +72,7 @@ export const {
       /*       if (user) {
         (token as any).accessToken = (user as any)?.accessToken;
       } */
-      console.log("triggerJWT", trigger);
+      // console.log("triggerJWT", trigger);
       if (trigger === "update") {
         return { ...token, ...session.user };
       }

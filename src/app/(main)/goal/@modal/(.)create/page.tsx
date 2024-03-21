@@ -1,10 +1,9 @@
-import GoalForm from "@/app/(main)/goal/_components/form/GoalForm";
-import React from "react";
+import CreateTaskForm from "@/app/(main)/goal/_components/form/CreateTaskForm";
 
 export default function Page() {
   return (
     <div>
-      <GoalForm />
+      <CreateTaskForm />
     </div>
   );
 }

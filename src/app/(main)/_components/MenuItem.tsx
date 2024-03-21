@@ -12,7 +12,7 @@ type Props = {
 
 export const MenuItem = ({ children, href }: PropsWithChildren<Props>) => {
   const pathname = usePathname();
-  const isMatchPath = pathname === href;
+  const isMatchPath = pathname.includes(href);
 
   return (
     <li

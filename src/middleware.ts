@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
   } else if (!session && pathname !== "/") {
     return NextResponse.redirect("http://localhost:3000/");
   } else {
-    return;
+    // return;
   }
 }
 

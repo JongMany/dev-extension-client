@@ -34,6 +34,7 @@ export default function SignupForm() {
           [name]: form[name].text,
         }),
       });
+
       const data = await response.json();
       console.log(data);
       if (data.statusCode === 200) {

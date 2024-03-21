@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
 import returnFetch, { ReturnFetch } from "return-fetch";
 
 const refreshAccessToken = async (session: any) => {
@@ -35,6 +34,7 @@ const refreshAccessToken = async (session: any) => {
   return newAccessToken;
 };
 
+// TODO: 리팩토링..!
 const useCheckTokenInClient: ReturnFetch = (args) => {
   const { data: session, update } = useSession();
 
@@ -49,13 +49,15 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
           url,
           accessToken
             ? {
+                ...args,
                 ...option,
                 headers: {
                   ...option?.headers,
+                  ...args?.headers,
                   Authorization: `Bearer ${accessToken}`,
                 },
               }
-            : option,
+            : { ...args, ...option },
         ];
       },
       response: async (response, requestArgs, fetch) => {
@@ -78,8 +80,6 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
         );
 
         const data = await res.json();
-        console.log("new token", data.accessToken);
-
         const newAccessToken = data.accessToken;
 
         await update({

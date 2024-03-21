@@ -22,20 +22,22 @@ const refreshToken = async () => {
   return newToken;
 };
 
-const verifyTokenInClient: ReturnFetch = (args) => {
+const verifyTokenInClient: ReturnFetch = (defaultOption) => {
   return returnFetch({
-    ...args,
+    ...defaultOption,
     interceptors: {
       request: async (args) => {
         const [fetchUrl, fetchOptions] = args;
         const accessToken = localStorage.getItem("accessToken");
-
+        console.log(fetchOptions?.headers);
         if (accessToken) {
           return [
             fetchUrl,
             {
+              ...defaultOption,
               ...fetchOptions,
               headers: {
+                ...defaultOption?.headers,
                 ...fetchOptions?.headers,
                 Authorization: `Bearer ${accessToken}`,
               },

@@ -2,8 +2,8 @@ import { useFetch } from "@/lib/extendedFetch";
 // import { fetchExtended } from "@/lib/fetchExtended";
 import { useQuery } from "@tanstack/react-query";
 
-export function useGetAllGoals() {
-  const queryKey = ["goals", "all"];
+export function useGetAllTasks() {
+  const queryKey = ["tasks", "all"];
   const { fetch } = useFetch();
 
   const { data, isError, isFetching, isSuccess, error } = useQuery({
@@ -27,7 +27,6 @@ export function useGetAllGoals() {
     retry: false,
     // initialData: { goals: [] },
   });
-  console.log(isError);
 
   return {
     data,
@@ -38,7 +37,7 @@ export function useGetAllGoals() {
   };
 }
 
-export const getGoal = async () => {
+export const getTask = async () => {
   const res = await fetch(`/goal/all`, {
     method: "GET",
     cache: "default",

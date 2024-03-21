@@ -16,7 +16,7 @@ export default function SignupButton({ form }: Props) {
       console.log("유효성 검사 실패");
       return;
     }
-    // 회원 가입 요청
+    // TODO: 회원 가입 요청
 
     // const data = await signup(form);
   };
