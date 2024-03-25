@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-[100vh] px-4 select-none`}>
+      <body className={`${inter.className} min-h-[100vh] px-4 select-none flex flex-col`}>
         <Providers>{children}</Providers>
         {/* <div id="portal"></div> */}
       </body>

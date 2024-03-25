@@ -1,10 +1,13 @@
-import { auth } from "@/auth";
-import { NextRequest, NextResponse } from "next/server";
+import {auth} from "@/auth";
+import {NextRequest, NextResponse} from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const {pathname} = request.nextUrl;
   const session = await auth();
 
+  if (pathname === '/profile') {
+    return NextResponse.redirect(`http://localhost:3000/profile/${session?.user.nickname}`);
+  }
   if (session && pathname === "/") {
     return NextResponse.redirect("http://localhost:3000/main");
   } else if (!session && pathname !== "/") {
@@ -16,5 +19,5 @@ export async function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/main", "/", "/profile", "/rank", "/goal", "/dashboard"],
+  matcher: ["/main", "/", "/profile", "/rank", "/goal", "/dashboard", "/profile/:path*"],
 };

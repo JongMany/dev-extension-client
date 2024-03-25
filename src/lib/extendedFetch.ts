@@ -1,24 +1,24 @@
-import { useSession } from "next-auth/react";
-import returnFetch, { ReturnFetch } from "return-fetch";
+import {useSession} from "next-auth/react";
+import returnFetch, {ReturnFetch} from "return-fetch";
 
 const refreshAccessToken = async (session: any) => {
   // if (!session) return;
 
   const accessToken = session?.data?.user.accessToken;
-  const { update, data: sessionData } = session;
+  const {update, data: sessionData} = session;
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/auth/refresh`,
-    {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      cache: "no-store",
-    }
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/refresh`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        cache: "no-store",
+      }
   );
 
   const data = await response.json();
@@ -26,7 +26,7 @@ const refreshAccessToken = async (session: any) => {
 
   await update({
     ...sessionData,
-    user: { ...sessionData?.user, accessToken: newAccessToken },
+    user: {...sessionData?.user, accessToken: newAccessToken},
   });
   // if (session.data) {
   //   session.data.accessToken = newAccessToken;
@@ -36,7 +36,7 @@ const refreshAccessToken = async (session: any) => {
 
 // TODO: 리팩토링..!
 const useCheckTokenInClient: ReturnFetch = (args) => {
-  const { data: session, update } = useSession();
+  const {data: session, update} = useSession();
 
   return returnFetch({
     ...args,
@@ -48,7 +48,7 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
         return [
           url,
           accessToken
-            ? {
+              ? {
                 ...args,
                 ...option,
                 headers: {
@@ -57,26 +57,27 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
                   Authorization: `Bearer ${accessToken}`,
                 },
               }
-            : { ...args, ...option },
+              : {...args, ...option},
         ];
       },
       response: async (response, requestArgs, fetch) => {
         if (response.statusText !== "Unauthorized") {
           return response;
         }
+
         const [url, option] = requestArgs;
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/auth/refresh`,
-          {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${session?.user.accessToken}`,
-            },
-            cache: "no-store",
-          }
+            `${process.env.NEXT_PUBLIC_BASE_URL}/auth/refresh`,
+            {
+              method: "POST",
+              credentials: "include",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${session?.user.accessToken}`,
+              },
+              cache: "no-store",
+            }
         );
 
         const data = await res.json();
@@ -84,7 +85,7 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
 
         await update({
           ...session,
-          user: { ...session?.user, accessToken: newAccessToken },
+          user: {...session?.user, accessToken: newAccessToken},
         });
 
         return await fetch(url, {
