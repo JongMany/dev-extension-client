@@ -1,33 +1,42 @@
 import PrivacyInformation from "@/app/(main)/profile/_components/PrivacyInformation";
-import {auth} from "@/auth";
+import { auth } from "@/auth";
+import LineDivider from "@/app/(main)/profile/_components/LineDivider";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import { fetchServer } from "@/lib/fetchServer";
 
-export default async function ProfileView() {
+type Props = { email: string };
+
+export default async function ProfileView({ email }: Props) {
+  console.log("params2", email);
+
   const session = await auth();
-  return (
-      <>
-        <div className="w-[100%] pb-4">
-          <h2 className="text-lg font-bold">{session?.user.nickname}</h2>
-          <p className="text-sm">{session?.user.email}</p>
-        </div>
-        <LineDivider/>
-        <PrivacyInformation/>
-        <LineDivider/>
-        <section className="w-[100%] pt-4 mb-2">
-          <h3 className="font-bold text-lg mb-1">자기소개</h3>
-          <div className="w-[100%] px-2">
-            <p className="max-h-[20vh] h-[20vh] overflow-y-scroll scrollbar-hide border-[1px] px-4 py-2 rounded-lg break-all whitespace-pre-line">
-              저는 프론트엔드 개발자를 지망하는 학생입니다!
-              HCCLab에서 개발 인턴을 하고 있으며,
-              항해 플러스에서 매주 공부를 하고 있습니다!
-              연락은 blackberry1114@naver.com으로 메일 주시면 3일 내로 연락드리겠습니다!
-              인스타도 운영중이에요~!
-            </p>
-          </div>
-        </section>
-      </>
-  );
-}
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["profile", email], //nickname
+    queryFn: async () => {
+      const response = await fetchServer(`/profile/${session?.user.email}`, {});
 
-function LineDivider() {
-  return <hr className=" border-b-[1px] w-[100%]"/>
+      const data = await response?.json();
+      return data;
+    },
+    
+  });
+  const dehydratedState = dehydrate(queryClient);
+
+  return (
+    <>
+      <div className="w-[100%] pb-4">
+        <h2 className="text-lg font-bold">{session?.user.nickname}</h2>
+        <p className="text-sm">{session?.user.email}</p>
+      </div>
+      <LineDivider />
+      <HydrationBoundary state={dehydratedState}>
+        <PrivacyInformation email={email} />
+      </HydrationBoundary>
+    </>
+  );
 }

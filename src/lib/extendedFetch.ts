@@ -36,6 +36,7 @@ const refreshAccessToken = async (session: any) => {
 
 // TODO: 리팩토링..!
 const useCheckTokenInClient: ReturnFetch = (args) => {
+
   const {data: session, update} = useSession();
 
   return returnFetch({

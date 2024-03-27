@@ -1,6 +1,7 @@
 "use client";
 
 import { type Signup } from "@/models/auth/auth.model";
+import {signup} from "@/app/(auth)/signup/_utils/signup";
 
 type Props = {
   form: Signup;
@@ -11,14 +12,14 @@ export default function SignupButton({ form }: Props) {
     e.preventDefault();
     const isValidate = validateForm(form);
     const signupForm = formatSignupForm(form);
-    console.log(signupForm);
+
     if (!isValidate) {
       console.log("유효성 검사 실패");
       return;
     }
     // TODO: 회원 가입 요청
 
-    // const data = await signup(form);
+    const data = await signup(signupForm);
   };
 
   return <button onClick={handleSubmit}>회원가입</button>;
@@ -29,7 +30,7 @@ function validateForm(form: Signup) {
   return Object.values(form).every((field) => field.checkDuplicate);
 }
 
-type SignupForm = {
+export type SignupForm = {
   apiKey: string;
   password: string;
   email: string;
