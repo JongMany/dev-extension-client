@@ -31,12 +31,12 @@ export default function TimeHeatmap() {
   const cal = new CalHeatmap();
 
   cal.on("click", () => {
-    console.log("click");
+    // console.log("click");
   });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      console.log("paint", new Date());
+      // console.log("paint", new Date());
       const data = [
         { date: "2024-03-21", time: 3 },
         { date: "2024-03-22", time: 5 },

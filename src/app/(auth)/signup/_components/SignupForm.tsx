@@ -5,6 +5,7 @@ import { type Signup } from "@/models/auth/auth.model";
 import SignupButton from "@/app/(auth)/signup/_components/SignupButton";
 import CheckDuplicateButton from "@/app/(auth)/signup/_components/CheckDuplicateButton";
 import { fetchExtended } from "@/lib/fetchExtended";
+import {useFetch} from "@/lib/extendedFetch";
 
 const initialState: Signup = {
   apiKey: { text: "", checkDuplicate: false },
@@ -15,7 +16,7 @@ const initialState: Signup = {
 
 export default function SignupForm() {
   const [form, setForm] = useState(initialState);
-
+  const {fetch} = useFetch();
   const formChangeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
     setForm({
       ...form,
@@ -27,8 +28,9 @@ export default function SignupForm() {
   };
 
   const checkDuplicate = (name: keyof Signup) => async () => {
+
     try {
-      const response = await fetchExtended(`/auth/duplicate-check/${name}`, {
+      const response = await fetch(`/auth/duplicate-check/${name}`, {
         method: "POST",
         body: JSON.stringify({
           [name]: form[name].text,

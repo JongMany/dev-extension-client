@@ -1,22 +1,17 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { useGetProfile } from "@/app/(main)/profile/[email]/_hooks/useGetProfile";
-import { useSession } from "next-auth/react";
-import { useQueryClient } from "@tanstack/react-query";
+
 import LineDivider from "@/app/(main)/profile/_components/LineDivider";
+import {useGetProfile} from "@/app/(main)/profile/_hooks/useGetProfile";
 
 const infoClassName = "flex items-start gap-x-1 break-all";
+
 type Props = {
   email: string;
 };
 export default function PrivacyInformation({ email }: Props) {
-  const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<any>(["profile", email]);
-  const profile = data?.profile;
-  console.log(profile);
-  // const session = useSession();
-  // const { profile } = useGetProfile(session.data?.user?.email!);
+  const {profile} = useGetProfile(email);
 
   return (
     <>
@@ -27,7 +22,7 @@ export default function PrivacyInformation({ email }: Props) {
         </p>
         <p className={infoClassName}>
           <GeoIcon />
-          <span>{profile?.geolocation || "지역을 입력해주세요"}</span>
+          <span>{profile?.address || "지역을 입력해주세요"}</span>
         </p>
         {profile?.link.map((link: string) => (
           <p key={link} className={infoClassName}>
