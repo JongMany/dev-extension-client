@@ -1,13 +1,15 @@
 "use client";
 
 import { type Signup } from "@/models/auth/auth.model";
-import {signup} from "@/app/(auth)/signup/_utils/signup";
+import { signup } from "@/app/(auth)/signup/_utils/signup";
+import { useRouter } from "next/navigation";
 
 type Props = {
   form: Signup;
 };
 
 export default function SignupButton({ form }: Props) {
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const isValidate = validateForm(form);
@@ -20,6 +22,9 @@ export default function SignupButton({ form }: Props) {
     // TODO: 회원 가입 요청
 
     const data = await signup(signupForm);
+    if (data.message === "User created") {
+      router.replace("/");
+    }
   };
 
   return <button onClick={handleSubmit}>회원가입</button>;

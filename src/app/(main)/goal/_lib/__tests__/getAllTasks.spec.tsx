@@ -1,9 +1,8 @@
-import { getGoal, useGetAllGoals } from "@/app/(main)/goal/_lib/getAllGoals";
 import { createWrapper } from "@/tests/utils/wrapper";
 import { renderHook, waitFor } from "@testing-library/react";
-// import { useFetch } from "@/lib/extendedFetch";
 import { server } from "../../../../../../vitest.setup";
 import { HttpResponse, http } from "msw";
+import { getTask, useGetAllTasks } from "@/app/(main)/goal/_lib/useGetAllTasks";
 
 const goals = {
   goals: [
@@ -41,7 +40,7 @@ describe("useGetAllGoals test", async () => {
   });
 
   it("successful query hook", async () => {
-    const { result } = renderHook(() => useGetAllGoals(), {
+    const { result } = renderHook(() => useGetAllTasks(), {
       wrapper: createWrapper(),
     });
     // console.log(result.current);
@@ -51,7 +50,7 @@ describe("useGetAllGoals test", async () => {
   });
 
   it("test", async () => {
-    const data = await getGoal();
+    const data = await getTask();
     expect(data).toStrictEqual(goals);
   });
 
@@ -64,7 +63,7 @@ describe("useGetAllGoals test", async () => {
       })
     );
 
-    const { result } = renderHook(() => useGetAllGoals(), {
+    const { result } = renderHook(() => useGetAllTasks(), {
       wrapper: createWrapper(),
     });
 
