@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
-console.log("NEXTAUTH_URL:", process.env.NEXTAUTH_URL);
+console.log("NEXTAUTH_URL:", process.env.NEXT_AUTH_URL);
 console.log("NEXTAUTH_URL:", process.env.NEXT_PUBLIC_BASE_URL);
 
 /** @type {import('next').NextConfig} */
@@ -30,7 +30,8 @@ const nextConfig = {
     return config;
   },
   env: {
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+    PORT: 80,
+    NEXTAUTH_URL: process.env.NEXT_AUTH_URL,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   },
 };
