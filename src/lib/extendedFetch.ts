@@ -103,13 +103,14 @@ export const useFetch = () => {
   console.log(
     "useFetch",
     process.env.NEXT_PUBLIC_BASE_URL,
-    process.env.NEXT_AUTH_URL
+    process.env.NEXT_AUTH_URL,
+    process.env.NEXT_PUBLIC_BASE_URL
   );
 
   return {
     fetch: useCheckTokenInClient({
       // baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
-      baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
+      baseUrl: process.env.NEXT_PUBLIC_BASE_URL || "http://43.203.82.210:8080",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
