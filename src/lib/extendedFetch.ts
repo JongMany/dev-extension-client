@@ -18,6 +18,7 @@ const refreshAccessToken = async (session: any) => {
         Authorization: `Bearer ${accessToken}`,
       },
       cache: "no-store",
+      mode: "cors",
     }
   );
 
@@ -76,6 +77,7 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
               Authorization: `Bearer ${session?.user.accessToken}`,
             },
             cache: "no-store",
+            mode: "cors",
           }
         );
 
@@ -93,6 +95,10 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
             ...option?.headers,
             Authorization: `Bearer ${newAccessToken}`,
           },
+          method: "POST",
+          credentials: "include",
+          cache: "no-store",
+          mode: "cors",
         });
       },
     },
@@ -115,6 +121,8 @@ export const useFetch = () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      // credentials: "include", // 또는 'same-origin'
+      // mode: "cors",
     }),
   };
   // return { fetch };
