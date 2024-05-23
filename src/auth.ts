@@ -97,4 +97,6 @@ export const {
   session: {
     strategy: "jwt",
   },
+  trustHost: true,
+  // trustHost: process.env.NextAUTH_URL || "http://localhost:3000",
 });
