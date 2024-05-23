@@ -100,6 +100,12 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
 };
 
 export const useFetch = () => {
+  console.log(
+    "useFetch",
+    process.env.NEXT_PUBLIC_BASE_URL,
+    process.env.NODE_ENV
+  );
+
   return {
     fetch: useCheckTokenInClient({
       // baseUrl: process.env.NEXT_PUBLIC_BASE_URL,
