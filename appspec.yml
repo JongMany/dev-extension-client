@@ -3,10 +3,10 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/chagok
+    destination: /home/ubuntu/study-log-fe
     overwrite: yes
 permissions:
-  - object: /home/ubuntu/chagok
+  - object: /home/ubuntu/study-log-fe
     owner: ubuntu
     group: ubuntu
     mode: 755
