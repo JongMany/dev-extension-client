@@ -103,7 +103,7 @@ export const useFetch = () => {
   console.log(
     "useFetch",
     process.env.NEXT_PUBLIC_BASE_URL,
-    process.env.NODE_ENV
+    process.env.NEXT_AUTH_URL
   );
 
   return {
