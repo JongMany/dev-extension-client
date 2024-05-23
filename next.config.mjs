@@ -30,7 +30,7 @@ const nextConfig = {
     return config;
   },
   env: {
-    PORT: 80,
+    PORT: "80",
     NEXTAUTH_URL: process.env.NEXT_AUTH_URL,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   },
