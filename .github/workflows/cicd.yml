@@ -6,9 +6,9 @@ on:
       - main
 
 env:
-  S3_BUCKET_NAME: chagok-bucket
-  CODE_DEPLOY_APPLICATION_NAME: chagok-code-deploy
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: chagok
+  S3_BUCKET_NAME: study-log-front
+  CODE_DEPLOY_APPLICATION_NAME: study-log-front-server
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: study-log-front-server
 
 jobs:
   build:
