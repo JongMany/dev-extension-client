@@ -109,7 +109,7 @@ export const useFetch = () => {
   console.log(
     "useFetch",
     process.env.NEXT_PUBLIC_BASE_URL,
-    process.env.NEXT_AUTH_URL,
+    process.env.NEXTAUTH_URL,
     process.env.NEXT_PUBLIC_BASE_URL
   );
 
