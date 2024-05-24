@@ -16,6 +16,7 @@ export const {
   providers: [
     CredentialsProvider({
       authorize: async (credentials, req) => {
+        console.log("CREDENTIALS", credentials);
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signin`,
           {
@@ -33,7 +34,7 @@ export const {
             credentials: "include",
           }
         );
-        console.log(response);
+        console.log("RESPONSE", response);
         if (response.status === 200) {
           // 서버의 쿠키를 받아서 브라우저에 쿠키를 심는 코드 (프론트 서버에 쿠키를 두면 개인정보 문제 발생)
           let setCookie = response.headers.get("Set-Cookie");
