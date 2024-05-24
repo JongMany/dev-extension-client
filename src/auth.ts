@@ -16,6 +16,7 @@ export const {
   providers: [
     CredentialsProvider({
       authorize: async (credentials, req) => {
+        console.log("CREDENTIALS", credentials);
         if (
           !credentials ||
           !credentials.email ||
@@ -26,7 +27,6 @@ export const {
           return null;
         }
 
-        console.log("CREDENTIALS", credentials);
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signin`,
           {
@@ -110,5 +110,5 @@ export const {
     strategy: "jwt",
   },
   trustHost: true,
-  // trustHost: process.env.NextAUTH_URL || "http://localhost:3000",
+  // trustHost: process.env.NEXT_AUTH_URL || "http://localhost:3000",
 });
