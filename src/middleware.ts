@@ -6,6 +6,8 @@ export async function middleware(request: NextRequest) {
   const session = await auth();
 
   console.log("middleware", process.env.NEXTAUTH_URL, session, pathname);
+  console.log("SESSION", session);
+  console.log("PATHNAME", pathname);
 
   if (pathname === "/profile") {
     return NextResponse.redirect(
@@ -15,7 +17,7 @@ export async function middleware(request: NextRequest) {
   if (session && pathname === "/") {
     return NextResponse.redirect(`${process.env.NEXTAUTH_URL}/main`);
   } else if (!session && pathname !== "/") {
-    return NextResponse.redirect(`${process.env.NEXTAUTH_URL}/`);
+    return NextResponse.redirect(`${process.env.NEXTAUTH_URL}`);
   } else {
     // return;
   }
