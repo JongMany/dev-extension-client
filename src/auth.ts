@@ -16,6 +16,16 @@ export const {
   providers: [
     CredentialsProvider({
       authorize: async (credentials, req) => {
+        if (
+          !credentials ||
+          !credentials.email ||
+          !credentials.password ||
+          !credentials.apiKey
+        ) {
+          console.error("Missing credentials");
+          return null;
+        }
+
         console.log("CREDENTIALS", credentials);
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signin`,
