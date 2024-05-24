@@ -67,7 +67,7 @@ export const {
       /*       if (user) {
         (token as any).accessToken = (user as any)?.accessToken;
       } */
-      // console.log("triggerJWT", trigger);
+      console.log("triggerJWT", trigger);
       if (trigger === "update") {
         return { ...token, ...session.user };
       }
@@ -75,6 +75,7 @@ export const {
       // return Promise.resolve(token);
     },
     async session({ session, token, trigger, user }) {
+      console.log("session", session, "token", token, "trigger", trigger);
       // console.log("token", token);
       // console.log("token", token);
       // console.log("session", session, token);
