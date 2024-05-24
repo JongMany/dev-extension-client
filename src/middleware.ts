@@ -5,7 +5,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const session = await auth();
 
-  console.log("middleware", process.env.NEXTAUTH_URL);
+  console.log("middleware", process.env.NEXTAUTH_URL, session, pathname);
 
   if (pathname === "/profile") {
     return NextResponse.redirect(
