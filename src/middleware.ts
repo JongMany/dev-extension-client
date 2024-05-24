@@ -6,7 +6,7 @@ export async function middleware(request: NextRequest) {
   const session = await auth();
 
   console.log("middleware", process.env.NEXTAUTH_URL, session, pathname);
-  console.log("SESSION", session);
+  console.log("SESSION", session, typeof session);
   console.log("PATHNAME", pathname);
 
   if (pathname === "/profile") {
