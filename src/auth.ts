@@ -26,48 +26,54 @@ export const {
           console.error("Missing credentials");
           return null;
         }
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signin`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
 
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/auth/signin`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
+              body: JSON.stringify({
+                email: credentials?.email,
+                password: credentials?.password,
+                apiKey: credentials?.apiKey,
+              }),
+              cache: "no-store",
+              credentials: "include",
+            }
+          );
+          console.log("RESPONSE", response);
+          if (response.status === 200) {
+            // 서버의 쿠키를 받아서 브라우저에 쿠키를 심는 코드 (프론트 서버에 쿠키를 두면 개인정보 문제 발생)
+            let setCookie = response.headers.get("Set-Cookie");
+            let parsed;
+            if (setCookie) {
+              parsed = cookie.parse(setCookie);
+              const cookieStore = cookies();
+              cookieStore.set("refreshToken", parsed["refreshToken"], {
+                httpOnly: true,
+                sameSite: "lax",
+              });
+            }
+            const data = await response.json();
+            // console.log("data", data, parsed);
+            return {
+              ...data,
+              id: data.apiKey,
+              apiKey: data.apiKey,
+              name: data.nickname,
+              email: data.email,
+              refreshToken: parsed ? parsed["refreshToken"] : null, // 이게 과연 좋은 코드일까?
+            };
+          } else {
+            console.error("Authorization failed:", response.statusText);
 
-            body: JSON.stringify({
-              email: credentials?.email,
-              password: credentials?.password,
-              apiKey: credentials?.apiKey,
-            }),
-            cache: "no-store",
-            credentials: "include",
+            return null;
           }
-        );
-        console.log("RESPONSE", response);
-        if (response.status === 200) {
-          // 서버의 쿠키를 받아서 브라우저에 쿠키를 심는 코드 (프론트 서버에 쿠키를 두면 개인정보 문제 발생)
-          let setCookie = response.headers.get("Set-Cookie");
-          let parsed;
-          if (setCookie) {
-            parsed = cookie.parse(setCookie);
-            const cookieStore = cookies();
-            cookieStore.set("refreshToken", parsed["refreshToken"], {
-              httpOnly: true,
-              sameSite: "lax",
-            });
-          }
-          const data = await response.json();
-          // console.log("data", data, parsed);
-          return {
-            ...data,
-            id: data.apiKey,
-            apiKey: data.apiKey,
-            name: data.nickname,
-            email: data.email,
-            refreshToken: parsed ? parsed["refreshToken"] : null, // 이게 과연 좋은 코드일까?
-          };
-        } else {
+        } catch (error) {
+          console.error("Error in authorization:", error);
           return null;
         }
       },
@@ -78,12 +84,18 @@ export const {
       /*       if (user) {
         (token as any).accessToken = (user as any)?.accessToken;
       } */
-      console.log("triggerJWT", trigger);
-      if (trigger === "update") {
-        return { ...token, ...session.user };
+      // console.log("triggerJWT", trigger);
+      // if (trigger === "update") {
+      //   return { ...token, ...session.user };
+      // }
+      // return { ...token, ...user };
+      if (user) {
+        token = { ...token, ...user };
       }
-      return { ...token, ...user };
-      // return Promise.resolve(token);
+      if (trigger === "update" && session) {
+        token = { ...token, ...session.user };
+      }
+      return token;
     },
     async session({ session, token, trigger, user }) {
       console.log("session", session, "token", token, "trigger", trigger);

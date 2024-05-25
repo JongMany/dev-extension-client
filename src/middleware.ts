@@ -35,7 +35,7 @@ export async function middleware(request: NextRequest) {
   } else if (!session && pathname !== "/") {
     return NextResponse.redirect(`${process.env.NEXT_AUTH_URL}`);
   } else {
-    // return;
+    return NextResponse.next();
   }
 }
 
@@ -49,5 +49,6 @@ export const config = {
     "/goal",
     "/dashboard",
     "/profile/:path*",
+    "/api/:path*",
   ],
 };
