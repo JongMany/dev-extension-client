@@ -8,8 +8,9 @@ export default function SignoutButton() {
   const signoutHandler = () => {
     signOut({
       callbackUrl: "http://43.203.55.144/",
+      redirect: true,
     });
-    router.replace(process.env.NEXT_AUTH_URL || "http://43.203.55.144/");
+    // router.replace(process.env.NEXT_AUTH_URL || "http://43.203.55.144/");
 
     // localStorage.removeItem("email");
     // localStorage.removeItem("accessToken");
