@@ -6,11 +6,16 @@ export async function middleware(request: NextRequest) {
   const session = await auth();
 
   console.log("middleware", process.env.NEXT_AUTH_URL, session, pathname);
-  console.log("SESSION", session, typeof session);
+  console.log(
+    "SESSION",
+    session,
+    typeof session,
+    (session as unknown as string) === "Bad request."
+  );
   console.log("PATHNAME", pathname);
 
   // 체크
-  if (typeof session === "string" && session === "Bad request") {
+  if (typeof session === "string" && session === "Bad request.") {
     console.log("BAD REQUEST");
     console.log("middleware", process.env.NEXT_AUTH_URL, session, pathname);
     console.log("SESSION", session, typeof session);
