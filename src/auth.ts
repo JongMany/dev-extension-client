@@ -12,25 +12,31 @@ export const {
     signIn: "/",
     newUser: "/signup",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET || "secret",
   events: {
     signOut(data) {
-      console.log(
-        "auth.ts events signout",
-        "session" in data && data.session,
-        "token" in data && data.token
-      );
+      // console.log(
+      //   "auth.ts events signout",
+      //   "session" in data && data.session,
+      //   "token" in data && data.token
+      // );
     },
     session(data) {
-      console.log(
-        "auth.ts events session",
-        "session" in data && data.session,
-        "token" in data && data.token
-      );
+      // console.log(
+      //   "auth.ts events session",
+      //   "session" in data && data.session,
+      //   "token" in data && data.token
+      // );
     },
   },
   providers: [
     CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+        apiKey: { label: "API Key", type: "text" },
+      },
       authorize: async (credentials, req) => {
         console.log("CREDENTIALS", credentials);
         if (
@@ -60,11 +66,11 @@ export const {
               credentials: "include",
             }
           );
-          console.log("RESPONSE", response);
+          // console.log("RESPONSE", response);
 
           const contentType = response.headers.get("content-type");
           if (!contentType || !contentType.includes("application/json")) {
-            console.error("Expected JSON response, but got:", contentType);
+            // console.error("Expected JSON response, but got:", contentType);
             return null;
           }
 
@@ -108,10 +114,6 @@ export const {
   ],
   callbacks: {
     async jwt({ token, user, trigger, session }) {
-      /*       if (user) {
-        (token as any).accessToken = (user as any)?.accessToken;
-      } */
-      // console.log("triggerJWT", trigger);
       // if (trigger === "update") {
       //   return { ...token, ...session.user };
       // }
@@ -125,22 +127,9 @@ export const {
       return token;
     },
     async session({ session, token, trigger, user }) {
-      console.log("session", session, "token", token, "trigger", trigger);
-      // console.log("token", token);
-      // console.log("token", token);
-      // console.log("session", session, token);
-      /*    if (token.accessToken) {
-        (session as any).accessToken = token.accessToken;
-      }
-      console.log("trigger");
-      if (trigger === "update") {
-        console.log("session", session, "newSession", newSession);
-        const accessToken = session.accessToken;
-        session.accessToken = accessToken;
-        (token as any).accessToken = accessToken;
-        console.log("session", session);
-      }
-      return session; */
+      // console.log("session", session, "token", token, "trigger", trigger);
+      console.log("SESSIONs", session, "TOKEN", token, "TRIGGER", trigger);
+
       (session as any).user = token;
       return session;
     },

@@ -3,24 +3,24 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const session = await auth();
+  let session;
+  try {
+    session = await auth();
+    console.log("SESSION", session);
+  } catch (error) {
+    console.log("ERROR", error);
+  }
+  // console.log("middleware", process.env.NEXTAUTH_URL, session, pathname);
+  // console.log("SESSION", session);
+  // console.log("PATHNAME", pathname);
 
-  console.log("middleware", process.env.NEXT_AUTH_URL, session, pathname);
-  console.log(
-    "SESSION",
-    session,
-    typeof session,
-    (session as unknown as string) === "Bad request."
-  );
-  console.log("PATHNAME", pathname);
-
-  // 체크
+  // // 체크
   if (typeof session === "string" && session === "Bad request.") {
     if (pathname === "/") {
       return;
     }
-    console.log("BAD REQUEST");
-    return NextResponse.redirect(`${process.env.NEXT_AUTH_URL}`);
+    // console.log("BAD REQUEST");
+    // return NextResponse.redirect(`${process.env.NEXT_AUTH_URL}`);
   }
   if (pathname === "/profile") {
     return NextResponse.redirect(
@@ -46,6 +46,6 @@ export const config = {
     "/goal",
     "/dashboard",
     "/profile/:path*",
-    "/api/:path*",
+    // "/api/:path*",
   ],
 };
