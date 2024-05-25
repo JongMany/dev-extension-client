@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 export default function SignoutButton() {
   const signoutHandler = () => {
     signOut({
-      callbackUrl: "/",
+      callbackUrl: "http://43.203.55.144/",
     });
     // localStorage.removeItem("email");
     // localStorage.removeItem("accessToken");
