@@ -13,6 +13,22 @@ export const {
     newUser: "/signup",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  events: {
+    signOut(data) {
+      console.log(
+        "auth.ts events signout",
+        "session" in data && data.session,
+        "token" in data && data.token
+      );
+    },
+    session(data) {
+      console.log(
+        "auth.ts events session",
+        "session" in data && data.session,
+        "token" in data && data.token
+      );
+    },
+  },
   providers: [
     CredentialsProvider({
       authorize: async (credentials, req) => {
