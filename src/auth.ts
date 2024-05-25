@@ -45,6 +45,13 @@ export const {
             }
           );
           console.log("RESPONSE", response);
+
+          const contentType = response.headers.get("content-type");
+          if (!contentType || !contentType.includes("application/json")) {
+            console.error("Expected JSON response, but got:", contentType);
+            return null;
+          }
+
           if (response.status === 200) {
             // 서버의 쿠키를 받아서 브라우저에 쿠키를 심는 코드 (프론트 서버에 쿠키를 두면 개인정보 문제 발생)
             let setCookie = response.headers.get("Set-Cookie");
@@ -58,6 +65,10 @@ export const {
               });
             }
             const data = await response.json();
+            if (!data.email) {
+              console.error("Email is missing in response data");
+              return null;
+            }
             // console.log("data", data, parsed);
             return {
               ...data,
