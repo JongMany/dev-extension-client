@@ -9,6 +9,14 @@ export async function middleware(request: NextRequest) {
   console.log("SESSION", session, typeof session);
   console.log("PATHNAME", pathname);
 
+  // 체크
+  if (typeof session === "string" && session === "Bad request") {
+    console.log("BAD REQUEST");
+    console.log("middleware", process.env.NEXT_AUTH_URL, session, pathname);
+    console.log("SESSION", session, typeof session);
+    console.log("PATHNAME", pathname);
+    return NextResponse.redirect(`${process.env.NEXT_AUTH_URL}`);
+  }
   if (pathname === "/profile") {
     return NextResponse.redirect(
       `${process.env.NEXT_AUTH_URL}/profile/${session?.user.nickname}`
