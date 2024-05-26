@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
   }
   // console.log("middleware", process.env.NEXTAUTH_URL, session, pathname);
   // console.log("SESSION", session);
-  // console.log("PATHNAME", pathname);
+  console.log("PATHNAME", pathname);
 
   // // 체크
   if (typeof session === "string" && session === "Bad request.") {
