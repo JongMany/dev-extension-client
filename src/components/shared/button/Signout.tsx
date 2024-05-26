@@ -6,8 +6,16 @@ import { useRouter } from "next/navigation";
 export default function SignoutButton() {
   const router = useRouter();
   const signoutHandler = () => {
+    console.log(
+      process.env.NODE_ENV === "production"
+        ? "http://43.203.55.144/signin"
+        : "http://localhost:3000/signin"
+    );
     signOut({
-      callbackUrl: "http://43.203.55.144/",
+      callbackUrl:
+        process.env.NODE_ENV === "production"
+          ? "http://43.203.55.144/signin"
+          : "http://localhost:3000/signin",
       redirect: true,
     });
     // router.replace(process.env.NEXT_AUTH_URL || "http://43.203.55.144/");
