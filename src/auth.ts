@@ -10,7 +10,7 @@ export const {
 } = NextAuth({
   pages: {
     signIn: "/",
-    signOut: "/",
+    signOut: "/signin",
     newUser: "/signup",
   },
   secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET || "secret",
