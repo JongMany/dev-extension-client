@@ -46,6 +46,10 @@ export const config = {
     "/goal",
     "/dashboard",
     "/profile/:path*",
+    "/siginin",
+    "/signup",
+    // "/api/auth/signin",
+    // "/api/auth/signup",
     // "/api/:path*",
   ],
 };

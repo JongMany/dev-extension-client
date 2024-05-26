@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 export default function SignoutButton() {
   const router = useRouter();
   const signoutHandler = () => {
+    router.push(process.env.NEXT_AUTH_URL || "http://43.203.55.144/signin");
     console.log(
       process.env.NODE_ENV === "production"
         ? "http://43.203.55.144/signin"
@@ -18,7 +19,6 @@ export default function SignoutButton() {
           : "http://localhost:3000/signin",
       redirect: true,
     });
-    // router.replace(process.env.NEXT_AUTH_URL || "http://43.203.55.144/");
 
     // localStorage.removeItem("email");
     // localStorage.removeItem("accessToken");
