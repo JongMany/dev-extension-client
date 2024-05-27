@@ -54,7 +54,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "vitest.setup.js",
-    "src/app/(main)/profile/_components/Test.jsx"
+    "src/app/(main)/profile/_components/Test.jsx",
+    "src/app/api/auth/[...nextauth]/route.js"
   ],
   "exclude": [
     "node_modules",
