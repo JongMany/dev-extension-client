@@ -67,6 +67,7 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
         }
 
         const [url, option] = requestArgs;
+        console.log("session", session, session?.user.accessToken);
 
         const res = await fetch(
           `${
