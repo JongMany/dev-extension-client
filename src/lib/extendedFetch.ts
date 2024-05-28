@@ -62,12 +62,16 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
       },
       response: async (response, requestArgs, fetch) => {
         if (response.statusText !== "Unauthorized") {
+          console.log("response", response);
           return response;
         }
 
         const [url, option] = requestArgs;
+
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/auth/refresh`,
+          `${
+            process.env.NEXT_PUBLIC_BASE_URL || "http://43.203.82.210:8080"
+          }/auth/refresh`,
           {
             method: "POST",
             credentials: "include",
@@ -83,23 +87,25 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
 
         const data = await res.json();
         const newAccessToken = data.accessToken;
-
+        console.log("refresh token", newAccessToken, url, option);
         await update({
           ...session,
           user: { ...session?.user, accessToken: newAccessToken },
         });
 
-        return await fetch(url, {
+        const newResponse = await fetch(url, {
           ...option,
           headers: {
             ...option?.headers,
             Authorization: `Bearer ${newAccessToken}`,
           },
-          method: "POST",
-          credentials: "include",
-          cache: "no-store",
-          mode: "cors",
+          // method: "POST",
+          // credentials: "include",
+          // cache: "no-store",
+          // mode: "cors",
         });
+        console.log("newResponse", newResponse);
+        return newResponse;
       },
     },
   });
