@@ -1,3 +1,4 @@
+"use client";
 import { useSession } from "next-auth/react";
 import returnFetch, { ReturnFetch } from "return-fetch";
 
@@ -67,7 +68,7 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
         }
 
         const [url, option] = requestArgs;
-        console.log("session", session, session?.user.accessToken);
+        console.log(option?.headers);
 
         const res = await fetch(
           `${
@@ -88,7 +89,7 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
 
         const data = await res.json();
         const newAccessToken = data.accessToken;
-        console.log("refresh token", newAccessToken, url, option);
+        console.log("refresh token", newAccessToken, data);
         await update({
           ...session,
           user: { ...session?.user, accessToken: newAccessToken },

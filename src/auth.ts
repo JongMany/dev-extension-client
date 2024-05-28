@@ -141,4 +141,16 @@ export const {
   },
   trustHost: true,
   // trustHost: process.env.NEXT_AUTH_URL || "http://localhost:3000",
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+        domain: "http://43.203.55.144",
+      },
+    },
+  },
 });
