@@ -85,7 +85,7 @@ export default function TimeHeatmap() {
           { date: "2024/03/24", time: 60 },
           ...response,
         ]; // 예시 데이터
-        console.log(data);
+        // console.log(data);
         // const data = response.data;
         // console.log(parseISO(format(data[0].date, "yyyy-MM-dd")), data[0].date);
         const timeZone = "Asia/Seoul";
