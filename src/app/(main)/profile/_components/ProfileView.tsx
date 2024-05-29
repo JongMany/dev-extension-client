@@ -1,7 +1,7 @@
 import PrivacyInformation from "@/app/(main)/profile/_components/PrivacyInformation";
 import { auth } from "@/auth";
 import LineDivider from "@/app/(main)/profile/_components/LineDivider";
-import { SessionProvider } from "next-auth/react";
+import SessionProvider from "@/components/providers/SessionProvider";
 
 type Props = { email: string };
 
