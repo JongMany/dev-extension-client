@@ -91,7 +91,7 @@ export const {
                   process.env.NODE_ENV === "production"
                     ? // ? "43.203.55.144"
                       "43.203.82.210:8080"
-                    : "localhost",
+                    : "localhost:8080",
                 path: "/",
               });
             }
