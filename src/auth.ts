@@ -85,7 +85,13 @@ export const {
               const cookieStore = cookies();
               cookieStore.set("refreshToken", parsed["refreshToken"], {
                 httpOnly: true,
-                sameSite: "lax",
+                // sameSite: "lax",
+                sameSite: "none",
+                domain:
+                  process.env.NODE_ENV === "production"
+                    ? "43.203.55.144"
+                    : "localhost",
+                path: "/",
               });
             }
             const data = await response.json();
@@ -141,16 +147,20 @@ export const {
   },
   trustHost: true,
   // trustHost: process.env.NEXT_AUTH_URL || "http://localhost:3000",
-  cookies: {
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-        domain: "http://43.203.55.144",
-      },
-    },
-  },
+  // cookies: {
+  //   // cookies 전송용
+  //   sessionToken: {
+  //     name: `__Secure-next-auth.session-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/*",
+  //       secure: false, // process.env.NEXTAUTH_URL.startsWith('https://')
+  //       domain:
+  //         process.env.NODE_ENV === "production"
+  //           ? "43.203.55.144"
+  //           : "localhost:3000",
+  //     },
+  //   },
+  // },
 });
