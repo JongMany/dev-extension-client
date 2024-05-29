@@ -13,11 +13,6 @@ type Props = {
 };
 export default function PrivacyInformation({ email }: Props) {
   const { profile } = useGetProfile(email);
-  const { data: sesssion } = useSession();
-
-  if (!sesssion?.user.accessToken) {
-    return null;
-  }
 
   if (!email) {
     return null;
