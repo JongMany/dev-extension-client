@@ -45,161 +45,82 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
   // useEffect(() => {
 
   // }, [session]);
-  const fetchFn = useCallback(
-    returnFetch({
-      ...args,
-      interceptors: {
-        request: async (requestArgs) => {
-          const [url, option] = requestArgs;
-          const accessToken = session?.user?.accessToken;
 
-          return [
-            url,
-            accessToken
-              ? {
-                  ...args,
-                  ...option,
-                  headers: {
-                    ...option?.headers,
-                    ...args?.headers,
-                    Authorization: `Bearer ${accessToken}`,
-                  },
-                }
-              : { ...args, ...option },
-          ];
-        },
-        response: async (response, requestArgs, fetch) => {
-          if (response.statusText !== "Unauthorized") {
-            console.log("response", response);
-            return response;
-          }
-          const accessToken = session?.user?.accessToken;
-          // if (!accessToken && window === undefined) {
-          // }
-          const [url, option] = requestArgs;
-          // const authSession = await auth();
-          // console.log(authSession);
+  return returnFetch({
+    ...args,
+    interceptors: {
+      request: async (requestArgs) => {
+        const [url, option] = requestArgs;
+        const accessToken = session?.user?.accessToken;
 
-          const res = await fetch(
-            `${
-              process.env.NEXT_PUBLIC_BASE_URL || "http://43.203.82.210:8080"
-            }/auth/refresh`,
-            {
-              method: "POST",
-              credentials: "include",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${session?.user.accessToken}`,
-              },
-              cache: "no-store",
-              mode: "cors",
-            }
-          );
-
-          const data = await res.json();
-          const newAccessToken = data.accessToken;
-          console.log("refresh token", newAccessToken, data);
-          await update({
-            ...session,
-            user: { ...session?.user, accessToken: newAccessToken },
-          });
-
-          const newResponse = await fetch(url, {
-            ...option,
-            headers: {
-              ...option?.headers,
-              Authorization: `Bearer ${newAccessToken}`,
-            },
-            // method: "POST",
-            // credentials: "include",
-            // cache: "no-store",
-            // mode: "cors",
-          });
-          console.log("newResponse", newResponse);
-          return newResponse;
-        },
+        return [
+          url,
+          accessToken
+            ? {
+                ...args,
+                ...option,
+                headers: {
+                  ...option?.headers,
+                  ...args?.headers,
+                  Authorization: `Bearer ${accessToken}`,
+                },
+              }
+            : { ...args, ...option },
+        ];
       },
-    }),
-    [session?.user.accessToken]
-  );
-  return fetchFn;
+      response: async (response, requestArgs, fetch) => {
+        if (response.statusText !== "Unauthorized") {
+          console.log("response", response);
+          return response;
+        }
+        const accessToken = session?.user?.accessToken;
+        // if (!accessToken && window === undefined) {
+        // }
+        const [url, option] = requestArgs;
+        // const authSession = await auth();
+        // console.log(authSession);
 
-  // return returnFetch({
-  //   ...args,
-  //   interceptors: {
-  //     request: async (requestArgs) => {
-  //       const [url, option] = requestArgs;
-  //       const accessToken = session?.user?.accessToken;
+        const res = await fetch(
+          `${
+            process.env.NEXT_PUBLIC_BASE_URL || "http://43.203.82.210:8080"
+          }/auth/refresh`,
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${session?.user.accessToken}`,
+            },
+            cache: "no-store",
+            mode: "cors",
+          }
+        );
 
-  //       return [
-  //         url,
-  //         accessToken
-  //           ? {
-  //               ...args,
-  //               ...option,
-  //               headers: {
-  //                 ...option?.headers,
-  //                 ...args?.headers,
-  //                 Authorization: `Bearer ${accessToken}`,
-  //               },
-  //             }
-  //           : { ...args, ...option },
-  //       ];
-  //     },
-  //     response: async (response, requestArgs, fetch) => {
-  //       if (response.statusText !== "Unauthorized") {
-  //         console.log("response", response);
-  //         return response;
-  //       }
-  //       const accessToken = session?.user?.accessToken;
-  //       // if (!accessToken && window === undefined) {
-  //       // }
-  //       const [url, option] = requestArgs;
-  //       // const authSession = await auth();
-  //       // console.log(authSession);
+        const data = await res.json();
+        const newAccessToken = data.accessToken;
+        console.log("refresh token", newAccessToken, data);
+        await update({
+          ...session,
+          user: { ...session?.user, accessToken: newAccessToken },
+        });
 
-  //       const res = await fetch(
-  //         `${
-  //           process.env.NEXT_PUBLIC_BASE_URL || "http://43.203.82.210:8080"
-  //         }/auth/refresh`,
-  //         {
-  //           method: "POST",
-  //           credentials: "include",
-  //           headers: {
-  //             Accept: "application/json",
-  //             "Content-Type": "application/json",
-  //             Authorization: `Bearer ${session?.user.accessToken}`,
-  //           },
-  //           cache: "no-store",
-  //           mode: "cors",
-  //         }
-  //       );
-
-  //       const data = await res.json();
-  //       const newAccessToken = data.accessToken;
-  //       console.log("refresh token", newAccessToken, data);
-  //       await update({
-  //         ...session,
-  //         user: { ...session?.user, accessToken: newAccessToken },
-  //       });
-
-  //       const newResponse = await fetch(url, {
-  //         ...option,
-  //         headers: {
-  //           ...option?.headers,
-  //           Authorization: `Bearer ${newAccessToken}`,
-  //         },
-  //         // method: "POST",
-  //         // credentials: "include",
-  //         // cache: "no-store",
-  //         // mode: "cors",
-  //       });
-  //       console.log("newResponse", newResponse);
-  //       return newResponse;
-  //     },
-  //   },
-  // });
+        const newResponse = await fetch(url, {
+          ...option,
+          headers: {
+            ...option?.headers,
+            Authorization: `Bearer ${newAccessToken}`,
+          },
+          // method: "POST",
+          // credentials: "include",
+          // cache: "no-store",
+          // mode: "cors",
+        });
+        console.log("newResponse", newResponse);
+        return newResponse;
+      },
+    },
+  });
 };
 
 export const useFetch = () => {
