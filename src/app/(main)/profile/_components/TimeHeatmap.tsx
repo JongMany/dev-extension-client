@@ -3,7 +3,7 @@ import CalHeatmap from "cal-heatmap";
 import Tooltip from "cal-heatmap/plugins/Tooltip";
 import "cal-heatmap/cal-heatmap.css";
 import { useEffect } from "react";
-import { format } from "date-fns";
+import { format, min } from "date-fns";
 import { useFetch } from "@/lib/extendedFetch";
 import {
   getCurrentYear,
@@ -129,7 +129,7 @@ export default function TimeHeatmap() {
                   const [month, day] = format(new Date(date), "MM-dd").split(
                     "-"
                   );
-
+                  return makeTimeTooltip(date, value);
                   return `${month}월 ${day}일의 프로그래밍 시간 - ${
                     value ?? 0
                   }분`;
@@ -149,4 +149,21 @@ export default function TimeHeatmap() {
       className="w-[700px] min-h-[200px] overflow-x-scroll px-4 py-2 scrollbar-hide"
     ></div>
   );
+}
+
+function makeTimeTooltip(date: any, value: number) {
+  const [month, day] = format(new Date(date), "MM-dd").split("-");
+  return `${month}월 ${day}일의 프로그래밍 시간 - ${convertProgrammingTime(
+    value
+  )}`;
+}
+
+// 123.124 => 0.124
+function convertProgrammingTime(floatNum: number = 0) {
+  if (!floatNum) return "00시간 00분 00초";
+  const intNum = parseInt(`${floatNum}`); // 123
+  const secondInt = ((floatNum - intNum) * 60).toFixed(2);
+  const minuteInt = intNum % 60;
+  const hourInt = parseInt(`${(intNum - minuteInt) / 60}`);
+  return `${hourInt ?? "00"}시간 ${minuteInt ?? "00"}분 ${secondInt ?? "00"}초`;
 }
