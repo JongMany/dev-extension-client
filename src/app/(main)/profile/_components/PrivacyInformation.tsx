@@ -3,7 +3,8 @@ import React from "react";
 import Link from "next/link";
 
 import LineDivider from "@/app/(main)/profile/_components/LineDivider";
-import {useGetProfile} from "@/app/(main)/profile/_hooks/useGetProfile";
+import { useGetProfile } from "@/app/(main)/profile/_hooks/useGetProfile";
+import { useSession } from "next-auth/react";
 
 const infoClassName = "flex items-start gap-x-1 break-all";
 
@@ -11,7 +12,16 @@ type Props = {
   email: string;
 };
 export default function PrivacyInformation({ email }: Props) {
-  const {profile} = useGetProfile(email);
+  const { profile } = useGetProfile(email);
+  const { data: sesssion } = useSession();
+
+  if (sesssion?.user.accessToken) {
+    return null;
+  }
+
+  if (!email) {
+    return null;
+  }
 
   return (
     <>
