@@ -1,6 +1,6 @@
 import ProfileView from "@/app/(main)/profile/_components/ProfileView";
-import TimeHeatmap from "@/app/(main)/profile/_components/TimeHeatmap";
 import EditButton from "@/app/(main)/profile/_components/EditButton";
+import TimeHeatmapContainer from "@/app/(main)/profile/_components/TimeHeatmapContainer";
 
 type Props = { params: { email: string } };
 
@@ -14,7 +14,7 @@ export default async function ProfilePage({ params }: Props) {
         <EditButton />
       </nav>
       <section className="flex-1">
-        <TimeHeatmap />
+        <TimeHeatmapContainer />
         <section></section>
       </section>
     </main>

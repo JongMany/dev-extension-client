@@ -11,6 +11,7 @@ import {
   getStartOfYear,
   makeTimeStamp,
 } from "@/utils/date/date";
+import { useSession } from "next-auth/react";
 
 const option = {
   range: 12,

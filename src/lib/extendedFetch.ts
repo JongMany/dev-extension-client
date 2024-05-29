@@ -1,5 +1,7 @@
 "use client";
+import { auth } from "@/auth";
 import { useSession } from "next-auth/react";
+import { useCallback, useEffect } from "react";
 import returnFetch, { ReturnFetch } from "return-fetch";
 
 const refreshAccessToken = async (session: any) => {
@@ -39,6 +41,10 @@ const refreshAccessToken = async (session: any) => {
 // TODO: 리팩토링..!
 const useCheckTokenInClient: ReturnFetch = (args) => {
   const { data: session, update } = useSession();
+  console.log(session?.user.accessToken);
+  // useEffect(() => {
+
+  // }, [session]);
 
   return returnFetch({
     ...args,
@@ -46,6 +52,7 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
       request: async (requestArgs) => {
         const [url, option] = requestArgs;
         const accessToken = session?.user?.accessToken;
+
         return [
           url,
           accessToken
@@ -66,9 +73,12 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
           console.log("response", response);
           return response;
         }
-
+        const accessToken = session?.user?.accessToken;
+        // if (!accessToken && window === undefined) {
+        // }
         const [url, option] = requestArgs;
-        console.log(option?.headers);
+        // const authSession = await auth();
+        // console.log(authSession);
 
         const res = await fetch(
           `${
