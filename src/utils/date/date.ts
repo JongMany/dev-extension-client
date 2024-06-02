@@ -1,4 +1,11 @@
-import { endOfYear, startOfYear } from "date-fns";
+import {
+  endOfMonth,
+  endOfWeek,
+  endOfYear,
+  startOfMonth,
+  startOfWeek,
+  startOfYear,
+} from "date-fns";
 
 export function getCurrentYear() {
   return new Date().getFullYear();
@@ -15,4 +22,40 @@ export function getEndOfYear(currentYear: number) {
 /* 2024-02-03 형태 */
 export function makeTimeStamp(dateString: string, separator: "/" | "-" = "-") {
   return new Date(dateString.replace(/\//g, separator)).getTime();
+}
+
+// 이번주 월요일 구하기
+export function getThisWeekMonday(today: Date = new Date()) {
+  const monday = startOfWeek(today, { weekStartsOn: 1 });
+  return monday;
+}
+
+// 이번주 일요일 구하기
+export function getThisWeekSunday(today: Date = new Date()) {
+  const sunday = endOfWeek(today, { weekStartsOn: 1 });
+  return sunday;
+}
+
+// 이번달 첫날 구하기
+export function getThisMonthFirstDay(today: Date = new Date()) {
+  const firstDay = startOfMonth(today);
+  return firstDay;
+}
+
+// 이번달 마지막날 구하기
+export function getThisMonthLastDay(today: Date = new Date()) {
+  const lastDay = endOfMonth(today);
+  return lastDay;
+}
+
+// 이번년도 첫날 구하기 (1월 1일)
+export function getThisYearFirstDay(today: Date = new Date()) {
+  const firstDay = startOfYear(today);
+  return firstDay;
+}
+
+// 이번년도 마지막날 구하기 (12월 31일)
+export function getThisYearLastDay(today: Date = new Date()) {
+  const lastDay = endOfYear(today);
+  return lastDay;
 }

@@ -1,7 +1,5 @@
 "use client";
-import { auth } from "@/auth";
 import { useSession } from "next-auth/react";
-import { useCallback, useEffect } from "react";
 import returnFetch, { ReturnFetch } from "return-fetch";
 
 const refreshAccessToken = async (session: any) => {
@@ -41,10 +39,6 @@ const refreshAccessToken = async (session: any) => {
 // TODO: 리팩토링..!
 const useCheckTokenInClient: ReturnFetch = (args) => {
   const { data: session, update } = useSession();
-  console.log(session?.user.accessToken);
-  // useEffect(() => {
-
-  // }, [session]);
 
   return returnFetch({
     ...args,
@@ -64,21 +58,23 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
                   ...args?.headers,
                   Authorization: `Bearer ${accessToken}`,
                 },
+                credentials: "include",
               }
             : { ...args, ...option },
         ];
       },
       response: async (response, requestArgs, fetch) => {
         if (response.statusText !== "Unauthorized") {
-          console.log("response", response);
+          // console.log("response", response);
           return response;
         }
         const accessToken = session?.user?.accessToken;
+        const refreshToken = session?.user?.refreshToken;
         // if (!accessToken && window === undefined) {
         // }
         const [url, option] = requestArgs;
         // const authSession = await auth();
-        // console.log(authSession);
+        console.log(refreshToken);
 
         const res = await fetch(
           `${
@@ -91,15 +87,18 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
               Accept: "application/json",
               "Content-Type": "application/json",
               Authorization: `Bearer ${session?.user.accessToken}`,
+              // refreshToken: session?.user.refreshToken,
+              // Cookie: `refreshToken=${session?.user.refreshToken}`,
             },
             cache: "no-store",
             mode: "cors",
+            body: JSON.stringify({ refreshToken: session?.user.refreshToken }),
           }
         );
 
         const data = await res.json();
         const newAccessToken = data.accessToken;
-        console.log("refresh token", newAccessToken, data);
+        // console.log("refresh token", newAccessToken, data);
         await update({
           ...session,
           user: { ...session?.user, accessToken: newAccessToken },
@@ -116,14 +115,14 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
           // cache: "no-store",
           // mode: "cors",
         });
-        console.log("newResponse", newResponse);
+        // console.log("newResponse", newResponse);
         return newResponse;
       },
     },
   });
 };
 
-export const useFetch = () => {
+export const useFetch = (include: boolean = true) => {
   // console.log(
   //   "useFetch",
   //   process.env.NEXT_PUBLIC_BASE_URL,
@@ -139,7 +138,7 @@ export const useFetch = () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      // credentials: "include", // 또는 'same-origin'
+      // credentials: include ? "include" : false, // 또는 'same-origin'
       // mode: "cors",
     }),
   };

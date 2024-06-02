@@ -11,7 +11,6 @@ import {
   getStartOfYear,
   makeTimeStamp,
 } from "@/utils/date/date";
-import { useSession } from "next-auth/react";
 
 const option = {
   range: 12,
@@ -39,7 +38,7 @@ const option = {
     },
   },
 };
-export default function TimeHeatmap() {
+export default function TimeHeatmap({ email }: { email: string }) {
   const { fetch } = useFetch();
   const cal = new CalHeatmap();
 
@@ -65,10 +64,10 @@ export default function TimeHeatmap() {
       const startDayOfYear = format(getStartOfYear(currentYear), "yyyy-MM-dd");
       const endDayOfYear = format(getEndOfYear(currentYear), "yyyy-MM-dd");
       const response = await fetch(
-        `/time/from/${startDayOfYear}/to/${endDayOfYear}`
+        `time/${email}/from/${startDayOfYear}/to/${endDayOfYear}`
       );
       const data = await response.json();
-
+      console.log(data);
       return data.data;
     }
     fetchData();

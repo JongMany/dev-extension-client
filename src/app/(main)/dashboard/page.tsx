@@ -1,5 +1,5 @@
 import DashboardContainer from "@/app/(main)/dashboard/_components/DashboardContainer";
-import DurationSelector from "@/app/(main)/dashboard/_components/DurationSelector";
+import DashboardHeader from "@/app/(main)/dashboard/_components/DashboardHeader";
 
 export default function DashboardPage() {
   // 대시보드
@@ -7,7 +7,8 @@ export default function DashboardPage() {
   // 언어별 프로젝트별
   return (
     <main>
-      <DurationSelector />
+      <DashboardHeader />
+
       <DashboardContainer />
     </main>
   );

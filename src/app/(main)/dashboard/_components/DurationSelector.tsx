@@ -7,7 +7,6 @@ export default function DurationSelector() {
 
   const changeDurationHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const duration = e.target.value as "WEEK" | "MONTH" | "YEAR";
-    // 기간을 변경한다
     setDuration(duration);
   };
 

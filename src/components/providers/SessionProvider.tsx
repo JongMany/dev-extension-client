@@ -1,12 +1,18 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
+type Props = {
+  fallback?: React.ReactNode;
+};
 
-function SessionProvider({ children }: PropsWithChildren) {
+function SessionProvider({
+  children,
+  fallback = null,
+}: PropsWithChildren<Props>) {
   const { data: sesssion } = useSession();
 
   if (!sesssion?.user.accessToken) {
-    return null;
+    return fallback;
   }
   return <>{children}</>;
 }
