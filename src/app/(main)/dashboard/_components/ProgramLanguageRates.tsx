@@ -18,8 +18,10 @@ export default function ProgramLanguageRates() {
 
 function convertProgramDataToLanguageRates(programData: IProgramData[]) {
   const languageMap = programData.reduce((acc, cur) => {
-    acc[cur.programLanguage] =
-      (acc[cur.programLanguage] || 0) + cur.programDuration;
+    acc[languageMapper[cur.programLanguage as keyof typeof languageMapper]] =
+      (acc[
+        languageMapper[cur.programLanguage as keyof typeof languageMapper]
+      ] || 0) + cur.programDuration;
     return acc;
   }, {} as Record<string, number>);
   return Object.entries(languageMap).map(([language, duration]) => ({
