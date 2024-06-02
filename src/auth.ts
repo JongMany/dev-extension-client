@@ -40,7 +40,7 @@ export const {
         apiKey: { label: "API Key", type: "text" },
       },
       authorize: async (credentials, req) => {
-        console.log("CREDENTIALS", credentials);
+        // console.log("CREDENTIALS", credentials);
         if (
           !credentials ||
           !credentials.email ||
@@ -68,13 +68,13 @@ export const {
               credentials: "include",
             }
           );
-          // console.log("RESPONSE", response);
 
           const contentType = response.headers.get("content-type");
           if (!contentType || !contentType.includes("application/json")) {
-            // console.error("Expected JSON response, but got:", contentType);
             return null;
           }
+
+          console.log("response", response);
 
           if (response.status === 200) {
             // 서버의 쿠키를 받아서 브라우저에 쿠키를 심는 코드 (프론트 서버에 쿠키를 두면 개인정보 문제 발생)
@@ -85,15 +85,16 @@ export const {
               const cookieStore = cookies();
               cookieStore.set("refreshToken", parsed["refreshToken"], {
                 httpOnly: true,
-                // sameSite: "lax",
                 sameSite: "none",
                 domain:
                   process.env.NODE_ENV === "production"
-                    ? // ? "43.203.55.144"
-                      "43.203.82.210:8080"
-                    : "localhost:8080",
+                    ? "43.203.82.210"
+                    : "127.0.0.1",
+                secure: false,
+                maxAge: 1000 * 60 * 60 * 24 * 30, // 14 days
                 path: "/",
               });
+              // cookies().set("connect.sid", parsed["refreshToken"], parsed);
             }
             const data = await response.json();
             if (!data.email) {
@@ -137,7 +138,7 @@ export const {
     },
     async session({ session, token, trigger, user }) {
       // console.log("session", session, "token", token, "trigger", trigger);
-      console.log("SESSIONs", session, "TOKEN", token, "TRIGGER", trigger);
+      // console.log("SESSIONs", session, "TOKEN", token, "TRIGGER", trigger);
 
       (session as any).user = token;
       return session;

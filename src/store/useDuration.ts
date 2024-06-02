@@ -1,7 +1,8 @@
+import { Duration } from "@/entities/duration";
 import { create } from "zustand";
 
 type State = {
-  duration: "WEEK" | "MONTH" | "YEAR";
+  duration: Duration;
 };
 type Action = {
   setDuration: (duration: State["duration"]) => void;
