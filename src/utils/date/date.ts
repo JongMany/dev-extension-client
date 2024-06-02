@@ -59,3 +59,14 @@ export function getThisYearLastDay(today: Date = new Date()) {
   const lastDay = endOfYear(today);
   return lastDay;
 }
+
+// 시간 변환
+// 123.124 => 0.124
+export function convertProgrammingTime(floatNum: number = 0) {
+  if (!floatNum) return "00시간 00분 00초";
+  const intNum = parseInt(`${floatNum}`); // 123
+  const secondInt = ((floatNum - intNum) * 60).toFixed(2);
+  const minuteInt = intNum % 60;
+  const hourInt = parseInt(`${(intNum - minuteInt) / 60}`);
+  return `${hourInt ?? "00"}시간 ${minuteInt ?? "00"}분 ${secondInt ?? "00"}초`;
+}

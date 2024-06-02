@@ -1,5 +1,6 @@
 import DashboardContainer from "@/app/(main)/dashboard/_components/DashboardContainer";
 import DashboardHeader from "@/app/(main)/dashboard/_components/DashboardHeader";
+import SessionProvider from "@/components/providers/SessionProvider";
 
 export default function DashboardPage() {
   // 대시보드
@@ -8,8 +9,9 @@ export default function DashboardPage() {
   return (
     <main>
       <DashboardHeader />
-
-      <DashboardContainer />
+      <SessionProvider>
+        <DashboardContainer />
+      </SessionProvider>
     </main>
   );
 }

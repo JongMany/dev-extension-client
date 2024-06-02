@@ -23,14 +23,16 @@ export default function useFetchProgrammingTime() {
   const fetchDate = async () => {
     const email = session?.user.email;
     if (!email) return;
-    const response = await fetch(`/time/${email}/from/${from}/to/${to}`);
+    const response = await fetch(
+      `/time/overall/${email}/from/${from}/to/${to}`
+    );
     const data = await response.json();
 
     return data.data;
   };
 
   return useQuery({
-    queryKey: ["programmingTime", from, to],
+    queryKey: ["programmingTime", duration],
     queryFn: fetchDate,
     staleTime: 1000 * 60 * 10, // 10분
   });
