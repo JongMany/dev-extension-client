@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { addDynamicIconSelectors } from "@iconify/tailwind";
 
 const config: Config = {
   content: [
@@ -16,8 +17,18 @@ const config: Config = {
       gridTemplateColumns: {
         signup: "1fr 3fr 1fr",
       },
+      keyframes: {
+        glow: {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.3",
+          },
+        },
+      },
     },
   },
-  plugins: [require("tailwind-scrollbar-hide")],
+  plugins: [require("tailwind-scrollbar-hide"), addDynamicIconSelectors()],
 };
 export default config;
