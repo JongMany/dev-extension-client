@@ -51,6 +51,7 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
           url,
           accessToken
             ? {
+                // credentials: "include",
                 ...args,
                 ...option,
                 headers: {
@@ -58,12 +59,12 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
                   ...args?.headers,
                   Authorization: `Bearer ${accessToken}`,
                 },
-                credentials: "include",
               }
             : { ...args, ...option },
         ];
       },
       response: async (response, requestArgs, fetch) => {
+        console.log(response);
         if (response.statusText !== "Unauthorized") {
           // console.log("response", response);
           return response;
