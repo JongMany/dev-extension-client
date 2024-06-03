@@ -9,6 +9,9 @@ export default function RankHeader() {
         </span>
       </h1>
       <p className="text-[24px]">전국 최고의 프로그래밍 덕후를 찾아보자</p>
+      <p className="text-[14px]">
+        한국시간 오전 9시 기준으로 데이터가 집계됩니다.
+      </p>
     </nav>
   );
 }
