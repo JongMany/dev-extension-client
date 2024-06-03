@@ -64,7 +64,7 @@ const useCheckTokenInClient: ReturnFetch = (args) => {
         ];
       },
       response: async (response, requestArgs, fetch) => {
-        console.log(response);
+        // console.log(response);
         if (response.statusText !== "Unauthorized") {
           // console.log("response", response);
           return response;

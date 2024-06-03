@@ -22,16 +22,26 @@ export default function RankUI({ title, rankData }: Props) {
       {rankData.length > 0 && (
         <ul className="w-full">
           {rankData.map((rank, index) => (
-            <li key={rank.user} className="mb-2">
+            <li key={rank.email} className="mb-3">
               <div className="flex flex-col items-center rounded-lg px-2 py-1 bg-[#d1fae5]">
                 <div className="flex w-full items-baseline">
                   <RankText rank={index + 1} />
-
-                  <span className={`${getRankUserNameColor(index + 1)}`}>
-                    {rank.user}
+                  <span
+                    className={`flex-1 ${getRankUserNameColor(
+                      index + 1
+                    )} flex justify-center`}
+                  >
+                    {rank.nickname}
                   </span>
                 </div>
-                <span>{formatSecondsToTime(rank.developmentTime)}</span>
+                <div className="flex gap-x-2 items-baseline">
+                  <span className="font-semibold text-[14px]">
+                    프로그래밍한 시간
+                  </span>
+                  <span className="text-[12px]">
+                    {formatSecondsToTime(rank.developmentTime)}
+                  </span>
+                </div>
               </div>
             </li>
           ))}
