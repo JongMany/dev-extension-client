@@ -46,8 +46,9 @@ export default function useGetRankData() {
       });
       const data = (await response.json()) as { data: RankEntity[] };
       return data.data.map((item) => ({
-        user: item.user,
+        email: item.email,
         developmentTime: item.totalDuration / 1000,
+        nickname: item.nickname,
       }));
     } catch (error) {
       console.error(error);
