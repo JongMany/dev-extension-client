@@ -12,9 +12,6 @@ type Props = {
 };
 
 export default function RankUI({ title, rankData }: Props) {
-  if (!rankData || rankData.length === 0) {
-    return <>데이터가 없습니다.</>;
-  }
   return (
     <div className="flex flex-col items-center px-4">
       <h1 className="font-semibold text-[24px] mb-2">{title}</h1>
@@ -48,7 +45,11 @@ export default function RankUI({ title, rankData }: Props) {
         </ul>
       )}
       {/* 데이터가 없을 때 */}
-      {rankData.length === 0 && <div></div>}
+      {rankData.length === 0 && (
+        <div>
+          <p className="">오늘 여러분이 랭커가 되어 보시는건 어떠신가요?</p>
+        </div>
+      )}
     </div>
   );
 }

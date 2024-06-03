@@ -26,7 +26,7 @@ export default function MyRank() {
   return (
     <section className="w-full border-2 mt-8 rounded-md px-4 pt-6 pb-3">
       <h2 className="font-bold text-[22px] text-center border-b-2 pb-3">
-        내 {rankMapper[selectedDuration]} 랭킹
+        My {rankMapper[selectedDuration]} 랭킹
       </h2>
       <div className="flex justify-between">
         <nav className="py-4">
