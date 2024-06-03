@@ -22,7 +22,7 @@ export default function useFetchProgrammingTime() {
   const from = getFromDate(duration);
   const to = getToDate(duration);
   const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // "Asia/Seoul"
-  console.log(localTimeZone);
+
   const fetchDate = async () => {
     const email = session?.user.email;
     if (!email) return;
@@ -39,11 +39,11 @@ export default function useFetchProgrammingTime() {
 
       return {
         ...d,
-        programDuration: d.programDuration / 100000,
+        programDuration: d.programDuration / 1000,
         programmingTime: format(zonedTime, "yyyy-MM-dd HH:mm:ss"),
       };
     });
-
+    // console.log(from, to, convertedData);
     return convertedData;
   };
 

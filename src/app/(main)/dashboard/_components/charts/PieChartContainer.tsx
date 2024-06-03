@@ -97,7 +97,7 @@ const PieChartContainer = ({ data }: Props) => {
   const dataForPieOption = data.map((item) => ({
     name: item.language,
     value: item.duration,
-    times: convertProgrammingTime(item.duration),
+    times: formatTime(item.duration),
     percentage: ((item.duration / sum) * 100).toFixed(2),
   }));
   const option = makePieChartOption(dataForPieOption);
@@ -120,3 +120,15 @@ const PieChartContainer = ({ data }: Props) => {
   );
 };
 export default PieChartContainer;
+
+function formatTime(seconds: number) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+
+  const formattedHours = String(hours).padStart(2, "0");
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(secs.toFixed(2)).padStart(2, "0");
+
+  return `${formattedHours}시간 ${formattedMinutes}분 ${formattedSeconds}초`;
+}
