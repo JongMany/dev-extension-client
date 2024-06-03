@@ -70,3 +70,16 @@ export function convertProgrammingTime(floatNum: number = 0) {
   const hourInt = parseInt(`${(intNum - minuteInt) / 60}`);
   return `${hourInt ?? "00"}시간 ${minuteInt ?? "00"}분 ${secondInt ?? "00"}초`;
 }
+
+// 초 -> 시간 변환
+export function formatSecondsToTime(seconds: number) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+
+  const formattedHours = String(hours).padStart(2, "0");
+  const formattedMinutes = String(minutes).padStart(2, "0");
+  const formattedSeconds = String(secs.toFixed(2)).padStart(2, "0");
+
+  return `${formattedHours}시간 ${formattedMinutes}분 ${formattedSeconds}초`;
+}
