@@ -1,4 +1,5 @@
 import { Duration } from "@/entities/duration";
+import { IProgramData } from "@/entities/programData";
 import { useFetch } from "@/lib/extendedFetch";
 import { useDuration } from "@/store/useDuration";
 import {
@@ -12,6 +13,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
+import { toZonedTime } from "date-fns-tz";
 
 export default function useFetchProgrammingTime() {
   const { duration } = useDuration();
@@ -19,6 +21,7 @@ export default function useFetchProgrammingTime() {
   const { fetch } = useFetch();
   const from = getFromDate(duration);
   const to = getToDate(duration);
+  const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // "Asia/Seoul"
 
   const fetchDate = async () => {
     const email = session?.user.email;
@@ -26,9 +29,22 @@ export default function useFetchProgrammingTime() {
     const response = await fetch(
       `/time/overall/${email}/from/${from}/to/${to}`
     );
-    const data = await response.json();
 
-    return data.data;
+    const data = (await response.json()) as { data: IProgramData[] };
+    const convertedData = data.data.map((d) => {
+      const zonedTime = toZonedTime(
+        new Date(d.programmingTime).toISOString(),
+        localTimeZone
+      );
+
+      return {
+        ...d,
+        programDuration: d.programDuration / 1000,
+        programmingTime: format(zonedTime, "yyyy-MM-dd HH:mm:ss"),
+      };
+    });
+    // console.log(from, to, convertedData);
+    return convertedData;
   };
 
   return useQuery({
