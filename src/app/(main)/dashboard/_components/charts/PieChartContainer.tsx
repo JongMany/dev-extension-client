@@ -78,7 +78,7 @@ const makePieChartOption = (
         maxSurfaceAngle: 80,
       },
       labelLayout: function (params: any) {
-        console.log(params);
+        // console.log(params);
         const points = params.labelLinePoints!;
         // Update the end point.
         points[2][0] = params.labelRect.x + params.labelRect.width;

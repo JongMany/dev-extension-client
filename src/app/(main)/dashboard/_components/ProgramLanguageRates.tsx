@@ -28,7 +28,7 @@ function convertProgramDataToLanguageRates(programData: IProgramData[]) {
     language,
     // languageMapper[language as keyof typeof languageMapper] ||
     // languageMapper.other,
-    duration: duration / 10000,
+    duration: duration,
   }));
 }
 
@@ -37,6 +37,7 @@ const languageMapper = {
   jsx: "JavaScript",
   ts: "TypeScript",
   tsx: "TypeScript",
+  ipynb: "Python",
   py: "Python",
   java: "Java",
   kt: "Kotlin",
