@@ -52,6 +52,7 @@ const languageMapper = {
   shell: "Shell",
   sh: "Shell",
   json: "json",
+  geojson: "json",
   xml: "xml",
   yml: "yaml",
   yaml: "yaml",
