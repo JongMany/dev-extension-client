@@ -5,7 +5,7 @@ export default function Layout({ children }: PropsWithChildren) {
   return (
     <>
       <Header />
-      {children}
+      <div className=" px-4">{children}</div>
     </>
   );
 }

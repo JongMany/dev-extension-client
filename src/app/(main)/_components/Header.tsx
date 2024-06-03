@@ -6,7 +6,7 @@ import React from "react";
 
 export const Header = () => {
   return (
-    <header className="flex justify-between py-6 items-center">
+    <header className="flex justify-between h-[10vh] items-center border-b-2 border-black px-4 ">
       <StudyLogIcon />
       <Menu />
       <div className="flex gap-x-4 items-center">
