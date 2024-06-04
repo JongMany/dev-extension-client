@@ -11,6 +11,7 @@ import {
   TooltipComponent,
   TitleComponent,
 } from "echarts/components";
+import { EChartsOption } from "echarts-for-react";
 
 type Props = {
   data: { language: string; duration: number }[];
@@ -27,13 +28,14 @@ echarts.use([
 
 const makePieChartOption = (
   data: { name: string; value: number; times: string; percentage: string }[]
-) => ({
+): EChartsOption => ({
   legend: {
     type: "scroll",
     orient: "vertical",
-    right: 10,
+    right: 0,
     top: 20,
     bottom: 20,
+
     data: data.map((item) => item.name),
   },
   title: {
@@ -42,13 +44,13 @@ const makePieChartOption = (
     textStyle: {
       color: "#999",
       fontWeight: "normal",
-      fontSize: 14,
+      fontSize: 24,
     },
   },
   series: [
     {
       type: "pie",
-      radius: [50, 150],
+      radius: [50, 130],
       height: "100%",
       left: "center",
       width: 600,
@@ -59,14 +61,14 @@ const makePieChartOption = (
       label: {
         alignTo: "edge",
         formatter: function (params: any) {
-          return `${params.data.name}\n${params.data.times}`;
+          return `${params.data.name} (${params.data.percentage}%)\n${params.data.times}\n`;
         },
         minMargin: 5,
         edgeDistance: 10,
         lineHeight: 15,
         rich: {
           time: {
-            fontSize: 8,
+            fontSize: 10,
             color: "#999",
           },
         },

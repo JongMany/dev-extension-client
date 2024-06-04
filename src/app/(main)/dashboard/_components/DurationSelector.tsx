@@ -10,7 +10,6 @@ export default function DurationSelector() {
     setDuration(duration);
   };
 
-  console.log(duration);
   return (
     <select defaultValue={duration} onChange={changeDurationHandler}>
       <option value="WEEK">이번 주</option>

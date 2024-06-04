@@ -1,6 +1,7 @@
 "use client";
 import DashboardCard from "@/app/(main)/dashboard/_components/DashboardCard";
-import ProgramLanguageRates from "@/app/(main)/dashboard/_components/ProgramLanguageRates";
+import ProgramLanguageRatesChart from "@/app/(main)/dashboard/_components/ProgramLanguageRatesChart";
+import ProgramTimeSeriesChart from "@/app/(main)/dashboard/_components/ProgramTimeSeriesChart";
 import useFetchProgrammingTime from "@/app/(main)/dashboard/_libs/useFetchProgrammingTime";
 import React from "react";
 
@@ -16,7 +17,14 @@ export default function DashboardContainer() {
   return (
     <section>
       <DashboardCard>
-        <ProgramLanguageRates />
+        {isFetching && <>로딩 중...</>}
+        {isError && <>에러 발생</>}
+        {data && <ProgramLanguageRatesChart />}
+      </DashboardCard>
+      <DashboardCard>
+        {isFetching && <>로딩 중...</>}
+        {isError && <>에러 발생</>}
+        {data && <ProgramTimeSeriesChart />}
       </DashboardCard>
     </section>
   );
