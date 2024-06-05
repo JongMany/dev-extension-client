@@ -6,7 +6,7 @@ export function useGetAllTasks() {
   const queryKey = ["tasks", "all"];
   const { fetch } = useFetch();
 
-  const { data, isError, isFetching, isSuccess, error } = useQuery({
+  return useQuery({
     queryKey,
     queryFn: async () => {
       const res = await fetch(`/goal/all`, {
@@ -22,7 +22,7 @@ export function useGetAllTasks() {
       }
       const data = await res.json();
       return {
-        tasks: data.tasks || [],
+        tasks: data.tasks || ([] as Task[]),
       } as { tasks: Task[] };
     },
     staleTime: 1000 * 60 * 2,
@@ -30,14 +30,6 @@ export function useGetAllTasks() {
     // retry: false,
     // initialData: { goals: [] },
   });
-
-  return {
-    data,
-    isError,
-    isFetching,
-    error,
-    isSuccess,
-  };
 }
 
 export const getTask = async () => {
