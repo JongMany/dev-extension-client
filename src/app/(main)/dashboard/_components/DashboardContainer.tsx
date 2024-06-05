@@ -2,6 +2,7 @@
 import DashboardCard from "@/app/(main)/dashboard/_components/DashboardCard";
 import ProgramLanguageRatesChart from "@/app/(main)/dashboard/_components/ProgramLanguageRatesChart";
 import ProgramTimeSeriesChart from "@/app/(main)/dashboard/_components/ProgramTimeSeriesChart";
+import ProjectDepsChart from "@/app/(main)/dashboard/_components/ProjectDepsChart";
 import useFetchProgrammingTime from "@/app/(main)/dashboard/_libs/useFetchProgrammingTime";
 import React from "react";
 
@@ -25,6 +26,11 @@ export default function DashboardContainer() {
         {isFetching && <>로딩 중...</>}
         {isError && <>에러 발생</>}
         {data && <ProgramTimeSeriesChart />}
+      </DashboardCard>
+      <DashboardCard>
+        {isFetching && <>로딩 중...</>}
+        {isError && <>에러 발생</>}
+        {data && <ProjectDepsChart />}
       </DashboardCard>
     </section>
   );

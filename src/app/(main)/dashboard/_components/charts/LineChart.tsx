@@ -1,7 +1,6 @@
 import { IProgramData } from "@/entities/programData";
 import { PropertyType } from "@/utilityTypes/utility";
 import { EChartsOption } from "echarts";
-import ReactEChartsCore from "echarts-for-react/lib/core";
 import { LinesChart } from "echarts/charts";
 import {
   GridComponent,
@@ -30,10 +29,9 @@ const makeLineChartOption = (
   const makeSeriesOption = (
     data: DefaultLineData[]
   ): PropertyType<Required<EChartsOption>, "series"> => {
-    console.log(data);
     return {
       // name: "Name",
-      name: data[0].language || "ALL",
+      name: data[0].language || "전체",
       type: "line",
       labelLayout: {
         moveOverlap: "shiftY",
@@ -41,7 +39,6 @@ const makeLineChartOption = (
       endLabel: {
         show: true,
         formatter: function (params) {
-          console.log(params.seriesName, params.value);
           return `${params.seriesName} ${params.value}`;
         },
       },
@@ -56,31 +53,41 @@ const makeLineChartOption = (
 
   let series: any = [];
   let xAxis: string[] = [];
+  let label: string[] = [];
   if (dataForChart.option === "ALL") {
     series = [makeSeriesOption(dataForChart.data)];
     xAxis = Array.from(
       new Set(dataForChart.data.map((item) => format(item.date, "yyyy-MM-dd")))
     );
+    label = ["전체"];
   } else {
     const dateList: string[] = [];
 
     series = Object.entries(dataForChart.data).map(([language, data]) => {
       const value = Object.values(data);
       dateList.push(...value.map((item) => format(item.date, "yyyy-MM-dd")));
+      label.push(language);
       return makeSeriesOption(value);
     });
     xAxis = Array.from(new Set(dateList));
   }
 
-  console.log(series);
+  console.log(series, label);
 
   return {
-    animationDuration: 4000,
+    animationDuration: 6000,
     title: {
       text: "프로그래밍 시간",
       left: "center",
     },
-    tooltip: {},
+    legend: {
+      right: 0,
+      data: label,
+    },
+    tooltip: {
+      order: "valueDesc",
+      trigger: "axis",
+    },
     xAxis: {
       type: "category",
       // data: ["월", "화", "수", "목"],
