@@ -4,7 +4,7 @@ import { IProgramData } from "@/entities/programData";
 import { useDuration } from "@/store/useDuration";
 import { useQueryClient } from "@tanstack/react-query";
 
-export default function ProgramLanguageRates() {
+export default function ProgramLanguageRatesChart() {
   const queryClient = useQueryClient();
   const { duration } = useDuration();
   const programData =

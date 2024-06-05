@@ -27,6 +27,7 @@ export default function DescriptionCard({
     if (scrollY > maxScrollY) {
       animationValue = Math.max(0, 1 - (scrollY - maxScrollY) / 10000);
     }
+
     setDynamicStyles({
       scale: animationValue,
       filter: (1 - animationValue) * 100,
