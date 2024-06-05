@@ -45,6 +45,12 @@ function makeDepsGraphItems(programData: IProgramData[]) {
     ...data.project,
     `${data.fileName}.${data.programLanguage}`,
   ]);
+  if (deps.length === 0) {
+    return [];
+  }
+  if (deps.length === 1) {
+    return deps;
+  }
 
   return filterDuplicatedDependencies(removeDuplicateIn2DArray(deps));
 }
