@@ -2,7 +2,7 @@ import ProfileView from "@/app/(main)/profile/_components/ProfileView";
 import EditButton from "@/app/(main)/profile/_components/EditButton";
 import TimeHeatmapContainer from "@/app/(main)/profile/_components/TimeHeatmapContainer";
 import CalendarContainer from "@/app/(main)/profile/_components/CalendarContainer";
-import { SessionProvider } from "next-auth/react";
+import SessionProvider from "@/components/providers/SessionProvider";
 
 type Props = { params: { email: string } };
 
