@@ -1,5 +1,4 @@
 import { useFetch } from "@/lib/extendedFetch";
-// import { fetchExtended } from "@/lib/fetchExtended";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetAllTasks() {
