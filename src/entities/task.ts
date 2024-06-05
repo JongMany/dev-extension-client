@@ -29,3 +29,13 @@ export type CalendarTask = {
   end: Date;
   resourceId: number | number[];
 };
+
+// export interface Task {
+//   projectName: string;
+//   task: string;
+//   owner: string;
+//   dueDate: Date;
+//   createdAt: Date;
+//   isCompleted: boolean;
+//   _id: string;
+// }
