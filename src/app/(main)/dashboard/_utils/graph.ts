@@ -37,27 +37,50 @@ export const makeDepsGraphLinkAndNode = (deps: string[][]) => {
   const links: Link[] = [];
   const categories: Category[] = [];
   const categoryIndexMap = {} as Record<string, number>;
+  const depsRouteMap = {} as Record<string, boolean>;
 
+  /* 카테고리 구하기 */
   deps.forEach((dep, index) => {
     const category = dep[0];
-    if (!categoryIndexMap[category]) {
+    if (categoryIndexMap[category] === undefined) {
       categoryIndexMap[category] = categories.length;
       categories.push({ name: category });
     }
+  });
 
-    deps[index].forEach((value, i) => {
-      let nodeName = `Node${index}_${i}`;
-      nodes.push({
-        id: nodeName,
-        name: value,
-        category: categoryIndexMap[category],
-      });
-
-      if (i > 0) {
-        links.push({
-          source: `Node${index}_${i - 1}`,
-          target: nodeName,
+  /* 노드와 링크를 구하기 */
+  deps.forEach((dep, index) => {
+    let route = "";
+    deps[index].forEach((value, idx) => {
+      if (idx === 0) route = "";
+      route += `${value}->`;
+      /* 노드를 만들기 */
+      if (!depsRouteMap[route]) {
+        const nodeName = `${route}`;
+        nodes.push({
+          id: nodeName,
+          name: value,
+          category: categoryIndexMap[dep[0]],
         });
+        /* 카테고리 하위 노드는 링크로 연결 */
+        if (idx > 0) {
+          const splitedRoute = route
+            .split("->")
+            .filter((item) => item.length > 0);
+
+          const source = `${splitedRoute
+            .slice(0, splitedRoute.length - 1)
+            .join("->")}->`;
+
+          if (depsRouteMap[source]) {
+            // console.log(depsRouteMap, source);
+            links.push({
+              source,
+              target: nodeName,
+            });
+          }
+        }
+        depsRouteMap[route] = true;
       }
     });
   });

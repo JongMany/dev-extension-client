@@ -46,6 +46,7 @@ type Props = {
 
 const GraphChart = ({ depsData }: Props) => {
   const deps = makeDepsGraphLinkAndNode(depsData);
+  console.log(deps);
   const webkitDep = {
     type: "force",
     categories: [

@@ -18,7 +18,7 @@ export default function ProjectDepsChart() {
 
   const depsLink = makeDepsGraphItems(programData);
 
-  // console.log(depsLink, deps);
+  console.log(depsLink);
 
   return (
     <div>
