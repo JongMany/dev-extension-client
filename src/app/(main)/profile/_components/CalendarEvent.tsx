@@ -33,7 +33,7 @@ export default function CalendarEvent({ event }: Props) {
             className={`px-2 py-1 rounded-lg ${background} relative flex flex-col items-center bottom-5 text-white`}
           >
             <p>{event.title}</p>
-            <p>완료여부: {event.isCompleted ? "✅" : "❌"}</p>
+            <p>완료여부-{event.isCompleted ? "✅" : "❌"}</p>
           </div>
         </Tooltip>
       </Overlay>

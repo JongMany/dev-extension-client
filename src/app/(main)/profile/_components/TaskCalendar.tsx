@@ -7,8 +7,9 @@ import withDragAndDrop, {
 } from "react-big-calendar/lib/addons/dragAndDrop";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
-import { style } from "d3";
 import CalendarEvent from "@/app/(main)/profile/_components/CalendarEvent";
+import { format } from "date-fns";
+import { useUpdateTaskDueDate } from "@/app/(main)/profile/_hooks/useUpdateTaskDueDate";
 
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
@@ -27,16 +28,28 @@ export default function TaskCalendar({ localizer, tasks }: Props) {
   );
   const [date, setDate] = useState(defaultDate);
 
+  const { mutate: updateTaskDueDate } = useUpdateTaskDueDate();
+
+  /* 날짜 변경 */
   const taskMoveHandler = ({
     event,
     start,
     end,
   }: EventInteractionArgs<any>) => {
     const changed = start;
+    const changedDueDate = format(changed, "yyyy-MM-dd");
+    const taskId = event.id;
+    // console.log(changedDueDate, event);
+    updateTaskDueDate({
+      taskId,
+      updatedDate: changedDueDate,
+    });
   };
   const onNavigate = (date: Date) => {
     setDate(new Date(date));
   };
+
+  /* 티켓 스타일 지정 */
   const eventStyles = (
     event: any,
     start: Date,
@@ -69,10 +82,10 @@ export default function TaskCalendar({ localizer, tasks }: Props) {
         resizable={false}
         onNavigate={onNavigate}
         eventPropGetter={eventStyles}
-        titleAccessor={(event: any) => {
-          if (event.isCompleted) return `✅ ${event.title}`;
-          return event.title;
-        }}
+        // titleAccessor={(event: any) => {
+        //   if (event.isCompleted) return `✅ ${event.title}`;
+        //   return event.title;
+        // }}
         components={{
           event: CalendarEvent,
         }}
