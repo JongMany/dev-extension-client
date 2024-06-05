@@ -1,13 +1,14 @@
 "use client";
 import { CalendarTask } from "@/entities/task";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Calendar, Views, DateLocalizer } from "react-big-calendar";
 import withDragAndDrop, {
   EventInteractionArgs,
 } from "react-big-calendar/lib/addons/dragAndDrop";
-// import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
+import { style } from "d3";
+import CalendarEvent from "@/app/(main)/profile/_components/CalendarEvent";
 
 const DragAndDropCalendar = withDragAndDrop(Calendar);
 
@@ -24,6 +25,7 @@ export default function TaskCalendar({ localizer, tasks }: Props) {
     }),
     []
   );
+  const [date, setDate] = useState(defaultDate);
 
   const taskMoveHandler = ({
     event,
@@ -31,20 +33,49 @@ export default function TaskCalendar({ localizer, tasks }: Props) {
     end,
   }: EventInteractionArgs<any>) => {
     const changed = start;
-    console.log(event, start, end);
+  };
+  const onNavigate = (date: Date) => {
+    setDate(new Date(date));
+  };
+  const eventStyles = (
+    event: any,
+    start: Date,
+    end: Date,
+    isSelected: boolean
+  ) => {
+    return {
+      style: {
+        backgroundColor: event.isCompleted
+          ? "rgba(0, 255,0,0.6)"
+          : "rgba(255, 0, 0, 0.3)",
+        borderRadius: "4px",
+        border: "none",
+      },
+    };
   };
 
   return (
-    <div className="h-[600px]">
+    <div className="h-[700px]">
       <DragAndDropCalendar
         localizer={localizer}
         defaultDate={defaultDate}
+        date={date}
         defaultView={Views.MONTH}
+        views={[Views.MONTH]}
         events={tasks}
         scrollToTime={scrollToTime}
         popup
         onEventDrop={taskMoveHandler}
         resizable={false}
+        onNavigate={onNavigate}
+        eventPropGetter={eventStyles}
+        titleAccessor={(event: any) => {
+          if (event.isCompleted) return `✅ ${event.title}`;
+          return event.title;
+        }}
+        components={{
+          event: CalendarEvent,
+        }}
       />
     </div>
   );

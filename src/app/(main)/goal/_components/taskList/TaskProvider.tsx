@@ -1,7 +1,6 @@
 import TaskItem from "@/app/(main)/goal/_components/taskList/TaskItem";
 import { useGetAllTasks } from "@/app/(main)/goal/_lib/useGetAllTasks";
 import { Task } from "@/entities/task";
-// import { type TasksResponse } from "@/models/task/task.model";
 import { PropsWithChildren, createContext, useContext } from "react";
 
 type TaskContextType = {
