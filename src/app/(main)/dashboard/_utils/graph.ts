@@ -25,11 +25,18 @@ type Category = {
 type Link = {
   source: string;
   target: string;
+  lineStyle: {
+    width?: number;
+    curveness?: number;
+    length?: number;
+  };
+  depth: number;
 };
 type Node = {
   id: string;
   name: string;
   category: number;
+  symbolSize?: number;
 };
 
 export const makeDepsGraphLinkAndNode = (deps: string[][]) => {
@@ -61,6 +68,7 @@ export const makeDepsGraphLinkAndNode = (deps: string[][]) => {
           id: nodeName,
           name: value,
           category: categoryIndexMap[dep[0]],
+          symbolSize: 18 / (idx * 0.3 + 1),
         });
         /* 카테고리 하위 노드는 링크로 연결 */
         if (idx > 0) {
@@ -77,6 +85,12 @@ export const makeDepsGraphLinkAndNode = (deps: string[][]) => {
             links.push({
               source,
               target: nodeName,
+              lineStyle: {
+                width: 2,
+                // curveness: 0.2,
+                length: 10 / (idx * 0.3)
+              },
+              depth: idx,
             });
           }
         }
