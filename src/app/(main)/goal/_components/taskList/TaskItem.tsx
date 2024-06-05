@@ -2,7 +2,6 @@
 import { format } from "date-fns";
 
 import { useModal } from "@/lib/useModal";
-// import { Task } from "@/models/task/task.model";
 import EditTaskModal from "@/app/(main)/goal/_components/taskList/EditTaskModal";
 import useUpdateTask from "@/app/(main)/goal/_lib/useUpdateTask";
 import { Task } from "@/entities/task";
