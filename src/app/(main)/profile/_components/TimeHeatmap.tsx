@@ -39,6 +39,7 @@ const option = {
     },
   },
 };
+
 export default function TimeHeatmap({ email }: { email: string }) {
   const { fetch } = useFetch();
   const cal = new CalHeatmap();
@@ -76,12 +77,12 @@ export default function TimeHeatmap({ email }: { email: string }) {
         // console.log("paint", new Date());
         const response = await fetchData();
         const data = [
-          { date: "2024/03/01", time: 6 },
-          { date: "2024/03/20", time: 6 },
-          { date: "2024/03/21", time: 3 },
-          { date: "2024/03/22", time: 5 },
-          { date: "2024/03/23", time: 5 },
-          { date: "2024/03/24", time: 60 },
+          // { date: "2024/03/01", time: 6 },
+          // { date: "2024/03/20", time: 6 },
+          // { date: "2024/03/21", time: 3 },
+          // { date: "2024/03/22", time: 5 },
+          // { date: "2024/03/23", time: 5 },
+          // { date: "2024/03/24", time: 60 },
           ...response,
         ]; // 예시 데이터
         // console.log(data);
@@ -107,13 +108,19 @@ export default function TimeHeatmap({ email }: { email: string }) {
               y: (d: any) => d.time,
             },
             domain: { type: "month" },
-            subDomain: { type: "ghDay", width: 15, height: 15 },
+            subDomain: { type: "ghDay", width: 13, height: 13 },
             scale: {
               color: {
                 type: "diverging",
-                domain: [0, 10],
+                // domain: [0, 10, 30, 60, 120, 180, 240, 300],
+                domain: [0, 240],
                 scheme: "BuRd",
               },
+              // opacity: {
+              //   baseColor: "#71b747",
+              //   type: "linear",
+              //   domain: [0, 310],
+              // },
             },
           },
           [
@@ -125,6 +132,7 @@ export default function TimeHeatmap({ email }: { email: string }) {
                   // console.log(date);
                   // console.log(new Date(dayjsDate.$d));
                   // const [month, day] = format(date.$d, "MM-dd").split("-");
+                  console.log(value);
                   const [month, day] = format(new Date(date), "MM-dd").split(
                     "-"
                   );
@@ -143,10 +151,7 @@ export default function TimeHeatmap({ email }: { email: string }) {
   }, []);
 
   return (
-    <div
-      id="cal-heatmap"
-      className="w-[700px] min-h-[200px] overflow-x-scroll px-4 py-2 scrollbar-hide"
-    ></div>
+    <div id="cal-heatmap" className="overflow-x-scroll scrollbar-hide"></div>
   );
 }
 

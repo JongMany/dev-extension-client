@@ -1,5 +1,5 @@
+import { Task } from "@/entities/task";
 import { useFetch } from "@/lib/extendedFetch";
-// import { fetchExtended } from "@/lib/fetchExtended";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetAllTasks() {
@@ -20,11 +20,14 @@ export function useGetAllTasks() {
       if (!res.ok) {
         throw new Error("Network response was not ok");
       }
-      return res.json();
+      const data = await res.json();
+      return {
+        tasks: data.tasks || [],
+      } as { tasks: Task[] };
     },
     staleTime: 1000 * 60 * 2,
     // retry: 1,
-    retry: false,
+    // retry: false,
     // initialData: { goals: [] },
   });
 
