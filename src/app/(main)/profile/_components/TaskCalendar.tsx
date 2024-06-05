@@ -30,6 +30,7 @@ export default function TaskCalendar({ localizer, tasks }: Props) {
     start,
     end,
   }: EventInteractionArgs<any>) => {
+    const changed = start;
     console.log(event, start, end);
   };
 

@@ -2,9 +2,10 @@
 import { format } from "date-fns";
 
 import { useModal } from "@/lib/useModal";
-import { Task } from "@/models/task/task.model";
+// import { Task } from "@/models/task/task.model";
 import EditTaskModal from "@/app/(main)/goal/_components/taskList/EditTaskModal";
 import useUpdateTask from "@/app/(main)/goal/_lib/useUpdateTask";
+import { Task } from "@/entities/task";
 
 // DND https://velog.io/@sumi-0011/framer-motion-dnd
 type Props = {
@@ -45,7 +46,15 @@ export default function TaskItem({ task }: Props) {
       </article>
       {isOpen && (
         // <ServerModal />
-        <EditTaskModal isOpen={isOpen} closeModal={closeModal} task={task} />
+        <EditTaskModal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          task={{
+            ...task,
+            dueDate: new Date(task.dueDate),
+            createdAt: new Date(task.createdAt),
+          }}
+        />
       )}
     </>
   );
