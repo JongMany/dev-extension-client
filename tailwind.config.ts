@@ -52,11 +52,50 @@ const config: Config = {
             animationTimingFunction: "cubic-bezier(0, 0, 0.2, 1)",
           },
         },
+        drop: {
+          "0%": {
+            transform: "translateY(-50vh)",
+            animationTimingFunction: "ease-in",
+          },
+          "40%": {
+            transform: "translateY(-30vh)",
+            animationTimingFunction: "ease-in",
+          },
+          "65%": {
+            transform: "translateY(-20vh)",
+            animationTimingFunction: "ease-in",
+          },
+          "82%": {
+            transform: "translateY(-10vh)",
+            animationTimingFunction: "ease-in",
+          },
+          "92%": {
+            transform: "translateY(-5vh)",
+            animationTimingFunction: "ease-in",
+          },
+          "25%, 55%, 75%, 87%, 97%, 100%": {
+            transform: "translateY(0)",
+            animationTimingFunction: "ease-out",
+          },
+        },
+        float: {
+          "0%": {
+            transform: "translate(0, 0px)",
+          },
+          "50%": {
+            transform: "translate(0, 20px)",
+          },
+          "100%": {
+            transform: "translateY(0, -0px)",
+          },
+        },
       },
       animation: {
         gradient: "gradient 6s linear infinite",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         bouncing: "bouncing 2s infinite ",
+        droping: "drop 1.5s cubic-bezier(0, 0, 0.35, 1) forwards",
+        floating: "float 3s ease-in-out infinite",
       },
     },
   },

@@ -10,7 +10,7 @@ export default function RankContainer() {
   const queries = useGetRankData();
   // animate-[bouncing_1s_ease-in-out] delay-300
   return (
-    <section className="flex justify-around gap-x-8 ">
+    <section className="flex justify-around gap-x-8 animate-droping">
       <RankCard>
         <DailyRanking />
       </RankCard>
