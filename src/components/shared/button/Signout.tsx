@@ -29,7 +29,7 @@ export default function SignoutButton() {
 
   return (
     <button
-      className="transition duration-200 border-black border-solid border-4 px-2 py-1 rounded-md shadow-md hover:shadow-xl hover:font-bold text-2xl"
+      className="transition duration-200 border-black border-solid border-4 px-2 py-1 rounded-md shadow-md hover:shadow-xl hover:font-bold text-xl"
       onClick={signoutHandler}
     >
       로그아웃

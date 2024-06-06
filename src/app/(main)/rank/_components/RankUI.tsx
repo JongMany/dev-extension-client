@@ -4,6 +4,7 @@ import {
 } from "@/app/(main)/rank/_utils/rankStyle";
 import { Rank } from "@/entities/ranking";
 import { formatSecondsToTime } from "@/utils/date/date";
+import Link from "next/link";
 import React from "react";
 
 type Props = {
@@ -20,26 +21,28 @@ export default function RankUI({ title, rankData }: Props) {
         <ul className="w-full">
           {rankData.map((rank, index) => (
             <li key={rank.email} className="mb-3">
-              <div className="flex flex-col items-center rounded-lg px-2 py-1 bg-[#d1fae5]">
-                <div className="flex w-full items-baseline">
-                  <RankText rank={index + 1} />
-                  <span
-                    className={`flex-1 ${getRankUserNameColor(
-                      index + 1
-                    )} flex justify-center`}
-                  >
-                    {rank.nickname}
-                  </span>
+              <Link href={`/profile/${rank.email}`}>
+                <div className="flex flex-col items-center rounded-lg px-2 py-1 bg-[#d1fae5]">
+                  <div className="flex w-full items-baseline">
+                    <RankText rank={index + 1} />
+                    <span
+                      className={`flex-1 ${getRankUserNameColor(
+                        index + 1
+                      )} flex justify-center`}
+                    >
+                      {rank.nickname}
+                    </span>
+                  </div>
+                  <div className="flex gap-x-2 items-baseline">
+                    <span className="font-semibold text-[14px]">
+                      프로그래밍한 시간
+                    </span>
+                    <span className="text-[12px]">
+                      {formatSecondsToTime(rank.developmentTime)}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex gap-x-2 items-baseline">
-                  <span className="font-semibold text-[14px]">
-                    프로그래밍한 시간
-                  </span>
-                  <span className="text-[12px]">
-                    {formatSecondsToTime(rank.developmentTime)}
-                  </span>
-                </div>
-              </div>
+              </Link>
             </li>
           ))}
         </ul>
