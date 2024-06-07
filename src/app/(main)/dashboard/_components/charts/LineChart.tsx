@@ -29,6 +29,7 @@ const makeLineChartOption = (
   const makeSeriesOption = (
     data: DefaultLineData[]
   ): PropertyType<Required<EChartsOption>, "series"> => {
+    console.log(data);
     return {
       // name: "Name",
       name: data[0].language || "전체",
