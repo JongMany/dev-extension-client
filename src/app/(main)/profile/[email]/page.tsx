@@ -20,7 +20,7 @@ export default async function ProfilePage({ params }: Props) {
         <ProfileView email={decodedEmail} />
         {session?.user.email === decodedEmail ? <EditButton /> : null}
       </nav>
-      <section className="flex-1 px-4 py-2">
+      <section className="min-w-[700px] flex-1 px-4 py-2">
         <TimeHeatmapContainer email={decodedEmail} />
         <SessionProvider>
           {session?.user.email === decodedEmail ? (
@@ -30,9 +30,9 @@ export default async function ProfilePage({ params }: Props) {
           )}
         </SessionProvider>
       </section>
-      <section className="w-[200px]">
+      <section className="w-[250px] px-2 py-2">
         {/* 광고 문의? */}
-        <div>광고 문의</div>
+        <div className="min-h-[300px] border-2 rounded-xl px-2 py-2 text-lg flex flex-col items-center">광고 문의</div>
       </section>
     </main>
   );

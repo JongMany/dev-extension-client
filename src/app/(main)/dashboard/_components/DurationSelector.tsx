@@ -11,7 +11,7 @@ export default function DurationSelector() {
   };
 
   return (
-    <select defaultValue={duration} onChange={changeDurationHandler}>
+    <select defaultValue={duration} onChange={changeDurationHandler} className="text-[24px] font-semibold rounded-md px-6 py-2 border-4 border-black">
       <option value="WEEK">이번 주</option>
       <option value="MONTH">이번 달</option>
       <option value="YEAR">올해</option>

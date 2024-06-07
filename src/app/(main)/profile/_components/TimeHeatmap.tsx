@@ -108,7 +108,7 @@ export default function TimeHeatmap({ email }: { email: string }) {
               y: (d: any) => d.time,
             },
             domain: { type: "month" },
-            subDomain: { type: "ghDay", width: 13, height: 13 },
+            subDomain: { type: "ghDay", width: 15, height: 15 },
             scale: {
               color: {
                 type: "diverging",
@@ -151,7 +151,8 @@ export default function TimeHeatmap({ email }: { email: string }) {
   }, []);
 
   return (
-    <div id="cal-heatmap" className="overflow-x-scroll scrollbar-hide"></div>
+    // w-full
+    <div id="cal-heatmap" className="mx-auto"></div>
   );
 }
 

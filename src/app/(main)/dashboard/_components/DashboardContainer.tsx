@@ -1,5 +1,6 @@
 "use client";
 import DashboardCard from "@/app/(main)/dashboard/_components/DashboardCard";
+import HierachyChart from "@/app/(main)/dashboard/_components/HierachyChart";
 import ProgramLanguageRatesChart from "@/app/(main)/dashboard/_components/ProgramLanguageRatesChart";
 import ProgramTimeSeriesChart from "@/app/(main)/dashboard/_components/ProgramTimeSeriesChart";
 import ProjectDepsChart from "@/app/(main)/dashboard/_components/ProjectDepsChart";
@@ -31,6 +32,11 @@ export default function DashboardContainer() {
         {isFetching && <>로딩 중...</>}
         {isError && <>에러 발생</>}
         {data && <ProjectDepsChart />}
+      </DashboardCard>
+      <DashboardCard>
+        {isFetching && <>로딩 중...</>}
+        {isError && <>에러 발생</>}
+        {data && <HierachyChart />}
       </DashboardCard>
     </section>
   );
