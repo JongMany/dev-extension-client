@@ -53,9 +53,21 @@ function makeSunburstOption(hierarchyData: HierarchyData) {
         },
         label: {
           show: false,
+          // show: true,
+          // rotate: "radial",
+        },
+        tooltip: {
+          formatter: function (params: any) {
+            return `${params.data.name || 'UNKNOWN'}`
+          },
         },
       },
     ],
+    tooltip: {
+      formatter: function (params: any) {
+        return `${params.data.name || 'UNKNOWN'}`
+      },
+    },
   };
 }
 type Option = "TREE" | "SUNBURST";

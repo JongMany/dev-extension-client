@@ -13,6 +13,7 @@ import { SVGRenderer } from "echarts/renderers";
 import { useRef } from "react";
 import ReactECharts from "echarts-for-react";
 import { format } from "date-fns";
+import { formatSecondsToTime } from "@/utils/date/date";
 
 echarts.use([
   TitleComponent,
@@ -29,6 +30,7 @@ const makeLineChartOption = (
   const makeSeriesOption = (
     data: DefaultLineData[]
   ): PropertyType<Required<EChartsOption>, "series"> => {
+    console.log(data);
     return {
       // name: "Name",
       name: data[0].language || "전체",
@@ -39,7 +41,11 @@ const makeLineChartOption = (
       endLabel: {
         show: true,
         formatter: function (params) {
-          return `${params.seriesName} ${params.value}`;
+          // console.log(formatSecondsToTime(params.value))
+          console.log(params.value);
+          return `${params.seriesName} ${formatSecondsToTime(
+            (params?.value as number) || 0
+          )}`;
         },
       },
       emphasis: {
@@ -85,6 +91,41 @@ const makeLineChartOption = (
     tooltip: {
       order: "valueDesc",
       trigger: "axis",
+      // formatter: function (params) {
+      //   // console.log(formatSecondsToTime(params.value))
+      //   // const data = params[0];
+      //   // const name= data.seriesName;
+      //   // const value = fordata.value
+
+      //   // return `${params.seriesName} ${params.value}`;
+      // },
+      formatter: function (params: any) {
+        let date;
+        const children = params
+          .map((item: any) => {
+            console.log(item);
+            const name = item.seriesName;
+            const value = formatSecondsToTime(item.value || 0);
+            // const color = name === "전체" ? "black" : item.color;
+            const color = item.color;
+
+            date = item.axisValue;
+
+            return `<div style="display:flex; align-items:center;">
+              <span
+                style="width:14px; height:14px; background-color: ${color}; border-radius:50%; margin-right: 6px;"
+              ></span>
+              <span style="color:${color}; font-weight:700; margin-right:12px;">${name}</span>
+              <span>${value}</span>
+            </div>`;
+          })
+          .join("");
+
+        return `<div>
+          <span  style="font-weight:900; font-size:16px;">${date}</span>
+          ${children}
+        </div>`;
+      },
     },
     xAxis: {
       type: "category",
@@ -93,7 +134,7 @@ const makeLineChartOption = (
       // data: dataForChart.data.map((item) => item.date),
     },
     yAxis: {
-      name: "개발 시간",
+      name: "개발 시간(초 단위)",
     },
     grid: {
       right: 140,

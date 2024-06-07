@@ -5,6 +5,7 @@ import LineChart, {
   DefaultLineProp,
   LangaugeLineProp,
 } from "@/app/(main)/dashboard/_components/charts/LineChart";
+import { languageMapper } from "@/app/(main)/dashboard/_utils/mapper";
 import { IProgramData } from "@/entities/programData";
 import { useIntervalDate } from "@/lib/useIntervalDate";
 import { useDuration } from "@/store/useDuration";
@@ -44,6 +45,8 @@ export default function ProgramTimeSeriesChart() {
       dates
     );
 
+  console.log(timeSeriesDataPerLanguage);
+
   return (
     <div>
       <div onClick={selectChartOption}>
@@ -66,9 +69,16 @@ function fillEmptyDay(programData: IProgramData[], dates: string[]) {
   );
   for (const date of dates) {
     if (programDateSet.has(date)) {
-      const data = programData.filter(
-        (d) => format(d.programDay, "yyyy-MM-dd") === date
-      );
+      const data = programData
+        .filter((d) => format(d.programDay, "yyyy-MM-dd") === date)
+        .map((item) => ({
+          ...item,
+          programDay: format(item.programDay, "yyyy-MM-dd"),
+          language:
+            languageMapper[
+              item.programLanguage as keyof typeof languageMapper
+            ] || "other",
+        }));
       result.push(...data);
     } else {
       result.push({
@@ -122,9 +132,15 @@ function fillEmptyDayByLanguage(
   );
   for (const date of dates) {
     if (programDateSet.has(date)) {
-      const data = programData.filter(
-        (d) => format(d.date, "yyyy-MM-dd") === date
-      );
+      const data = programData
+        .filter((d) => format(d.date, "yyyy-MM-dd") === date)
+        .map((item) => ({
+          ...item,
+          programDay: format(item.date, "yyyy-MM-dd"),
+          language:
+            languageMapper[item.language as keyof typeof languageMapper] ||
+            "other",
+        }));
       result.push(...data);
     } else {
       result.push({
@@ -180,8 +196,18 @@ const fillEmpytDatesAndConvertProgramDataToTimeSeriesByLanguage = (
     .reduce((acc, cur) => {
       const key = Object.keys(cur)[0];
       const value = Object.values(cur)[0];
-      console.log(value);
-      acc[key] = fillEmptyDayByLanguage(value, dates, value[0].language);
+      console.log(key, value);
+      /* Mapper사용 */
+      const language =
+        languageMapper[key as keyof typeof languageMapper] || "other";
+      console.log("LANGUAGE", language);
+      // acc[language] = fillEmptyDayByLanguage(value, dates, value[0].language);
+      acc[language] = fillEmptyDayByLanguage(
+        value,
+        dates,
+        languageMapper[value[0].language as keyof typeof languageMapper] ||
+          "other"
+      );
       return acc;
     }, {});
 
