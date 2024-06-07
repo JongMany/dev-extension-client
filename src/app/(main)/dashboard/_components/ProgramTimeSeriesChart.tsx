@@ -49,9 +49,24 @@ export default function ProgramTimeSeriesChart() {
 
   return (
     <div>
-      <div onClick={selectChartOption}>
-        <button name="ALL">전체</button>
-        <button name="LANGUAGE">언어별</button>
+      <div onClick={selectChartOption} className="flex text-xl gap-x-2">
+        <button
+          className={`${
+            chartOption === "ALL"
+              ? "font-bold underline underline-offset-4"
+              : ""
+          }`}
+          name="ALL"
+        >
+          전체
+        </button>
+        <button  className={`${
+            chartOption === "LANGUAGE"
+              ? "font-bold underline underline-offset-4"
+              : ""
+          }`} name="LANGUAGE">
+          언어별
+        </button>
         {/* <button name="PROJECT">프로젝트별</button> */}
       </div>
       {chartOption === "ALL" && <LineChart data={timeSeriesData} />}
