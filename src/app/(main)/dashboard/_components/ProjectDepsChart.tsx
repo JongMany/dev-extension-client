@@ -28,7 +28,7 @@ export default function ProjectDepsChart() {
 }
 
 // 배열을 문자열로 변환하여 중복을 제거하는 함수
-function removeDuplicateIn2DArray(arrs: string[][]) {
+export function removeDuplicateIn2DArray(arrs: string[][]) {
   let seen = new Set();
   return arrs.filter((item) => {
     let stringified = JSON.stringify(item);

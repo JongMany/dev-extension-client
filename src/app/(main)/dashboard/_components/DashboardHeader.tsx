@@ -2,7 +2,7 @@ import DurationSelector from "@/app/(main)/dashboard/_components/DurationSelecto
 
 export default function DashboardHeader() {
   return (
-    <nav>
+    <nav className="py-4 px-2">
       <DurationSelector />
     </nav>
   );
