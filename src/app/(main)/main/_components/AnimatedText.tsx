@@ -31,7 +31,7 @@ const defaultAnimations = {
 export const AnimatedText = ({
   text,
   el: Wrapper = "p",
-  className,
+  className = "text-[24px] font-semibold",
   once,
   repeatDelay,
   animation = defaultAnimations,
@@ -63,7 +63,8 @@ export const AnimatedText = ({
   }, [isInView]);
 
   return (
-    <Wrapper className={className}>
+    <div className={className}>
+      {/* <Wrapper className={className}> */}
       <span className="sr-only">{text}</span>
       <motion.span
         ref={ref}
@@ -94,6 +95,6 @@ export const AnimatedText = ({
           </span>
         ))}
       </motion.span>
-    </Wrapper>
+    </div>
   );
 };
