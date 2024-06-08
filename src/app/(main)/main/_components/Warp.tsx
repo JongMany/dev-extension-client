@@ -7,12 +7,17 @@ export default function Warp() {
   const [isSwitching, setIsSwitching] = useState<WarpStateType>("end");
 
   useEffect(() => {
-    if (!JSON.parse(sessionStorage.getItem("isReload") ?? "false"))
+    if (!JSON.parse(sessionStorage.getItem("isReload") ?? "false")) {
+      console.log(sessionStorage.getItem("isReload"));
       setIsSwitching("warp");
+    }
   }, []);
 
   useEffect(() => {
-    const setReload = () => sessionStorage.setItem("isReload", "true");
+    const setReload = () => { 
+      console.log('reload');
+      sessionStorage.setItem("isReload", "true");
+  }
 
     window.addEventListener("beforeunload", setReload);
 

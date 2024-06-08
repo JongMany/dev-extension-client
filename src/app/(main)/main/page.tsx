@@ -7,7 +7,7 @@ import Warp from "@/app/(main)/main/_components/Warp";
 export default function Page() {
   return (
     <>
-      <Warp />
+      {/* <Warp /> */}
       <main>
         <HeadTitle />
         <Description />
