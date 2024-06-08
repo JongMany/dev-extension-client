@@ -7,10 +7,10 @@ import { SiNaver } from "react-icons/si";
 export default async function Footer() {
   const session = await auth();
   return (
-    <footer className="py-6 px-4 bg-black text-white flex justify-between h-[15vh]">
+    <footer className="py-6 px-4 bg-black text-white flex justify-between min-h-[15vh]">
       <div className="flex-1 flex flex-col items-center">
-        <h4 className="text-xl font-semibold mb-2">StudyLog</h4>
-        <span>© 2024. 방구석코딩쟁이</span>
+        <h4 className="text-lg font-semibold mb-2">StudyLog</h4>
+        <span className="text-md">© 2024. 방구석코딩쟁이</span>
       </div>
       <div className="flex-1 flex flex-col items-center">
         <h4 className="text-lg font-semibold mb-2">
@@ -45,7 +45,7 @@ export default async function Footer() {
         </div>
       </div>
       <div className="flex-1 flex flex-col items-center">
-        <h4 className="text-xl font-semibold mb-2">Follow Us</h4>
+        <h4 className="text-lg font-semibold mb-2">Follow Us</h4>
         <div className="flex gap-x-2">
           <div className="flex flex-col gap-y-2">
             <span className="text-lg px-3 py-3 rounded-full border-[1px]">
