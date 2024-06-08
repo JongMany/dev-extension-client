@@ -47,6 +47,23 @@ const makePieChartOption = (
       fontSize: 24,
     },
   },
+  tooltip: {
+    formatter: function (params: any) {
+      const color = params.color;
+      console.log(color, params)
+      return `
+      <div style="display:flex; flex-direction:column; width:200px;">
+        <p style="display:flex; justify-content: space-between;">
+          <span style="display:flex;"> 
+            <span style="width:14px; height:14px; background-color: ${color}; border-radius:50%; margin-right: 6px;"></span>
+            <strong style="color: ${color}">${params.data.name}</strong>
+          </span> 
+          <span> (${params.data.percentage}%)</span>
+        </p>
+        <span>${params.data.times}</span>
+      </div>`
+    },
+  },
   series: [
     {
       type: "pie",
@@ -58,35 +75,52 @@ const makePieChartOption = (
         borderColor: "#fff",
         borderWidth: 1,
       },
-      label: {
-        alignTo: "edge",
+      tooltip: {
         formatter: function (params: any) {
-          return `${params.data.name} (${params.data.percentage}%)\n${params.data.times}\n`;
+          const color = params.color;
+          console.log(color, params)
+          return `
+      <div style="display:flex; flex-direction:column; width:200px;">
+        <p style="display:flex; justify-content: space-between;">
+          <span style="display:flex;"> 
+            <span style="width:14px; height:14px; background-color: ${color}; border-radius:50%; margin-right: 6px;"></span>
+            <strong style="color: ${color}">${params.data.name}</strong>
+          </span> 
+          <span> (${params.data.percentage}%)</span>
+        </p>
+        <span>${params.data.times}</span>
+      </div>`
         },
-        minMargin: 5,
-        edgeDistance: 10,
-        lineHeight: 15,
-        rich: {
-          time: {
-            fontSize: 10,
-            color: "#999",
-          },
-        },
       },
-      labelLine: {
-        length: 10,
-        length2: 0,
-        maxSurfaceAngle: 80,
-      },
-      labelLayout: function (params: any) {
-        // console.log(params);
-        const points = params.labelLinePoints!;
-        // Update the end point.
-        points[2][0] = params.labelRect.x + params.labelRect.width;
-        return {
-          labelLinePoints: points,
-        };
-      },
+      // label: {
+      //   alignTo: "edge",
+      //   formatter: function (params: any) {
+      //     return `${params.data.name} (${params.data.percentage}%)\n${params.data.times}`;
+      //   },
+      //   minMargin: 5,
+      //   edgeDistance: 10,
+      //   lineHeight: 15,
+      //   rich: {
+      //     time: {
+      //       fontSize: 10,
+      //       color: "#999",
+      //     },
+      //   },
+      // },
+      // labelLine: {
+      //   length: 10,
+      //   length2: 0,
+      //   maxSurfaceAngle: 80,
+      // },
+      // labelLayout: function (params: any) {
+      //   // console.log(params);
+      //   const points = params.labelLinePoints!;
+      //   // Update the end point.
+      //   points[2][0] = params.labelRect.x + params.labelRect.width;
+      //   return {
+      //     labelLinePoints: points,
+      //   };
+      // },
       data,
     },
   ],

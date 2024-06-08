@@ -41,7 +41,7 @@ export default function Description() {
           <div className="flex-[1_0_auto] w-[90%]">
             <div className="relative h-full pb-4">
               <Image
-                src={"/assets/image/main_image_3.png"}
+                src={"/assets/image/main_image_1.png"}
                 alt={"랭킹사진"}
                 fill
                 className="object-fill rounded-xl"
