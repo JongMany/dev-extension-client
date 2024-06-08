@@ -16,6 +16,7 @@ type Props = {
 
 function makeTreemapOption(hierarchyData: HierarchyData) {
   return {
+   
     series: [
       {
         type: "treemap",

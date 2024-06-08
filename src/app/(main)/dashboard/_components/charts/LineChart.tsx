@@ -177,7 +177,7 @@ export default function LineChart({ data }: Props) {
   return (
     <div className="flex flex-col justify-center items-center">
       <ReactECharts
-        className="w-[1000px]"
+        className="w-[1150px]"
         option={options}
         style={{
           height: "400px",
