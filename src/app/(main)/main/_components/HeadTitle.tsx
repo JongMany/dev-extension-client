@@ -1,3 +1,4 @@
+import MainText from "@/app/(main)/main/_components/MainText";
 import Image from "next/image";
 
 export default function HeadTitle() {
@@ -12,12 +13,13 @@ export default function HeadTitle() {
       </p>
       <div className="flex-1 w-[80%] pb-4">
         <div className="relative h-full">
-          <Image
+          {/* <Image
             src={"/assets/image/main_image_0.webp"}
             alt={"소개 이미지"}
             fill
             className="object-fill rounded-xl"
-          />
+          /> */}
+          <MainText />
         </div>
       </div>
     </section>
