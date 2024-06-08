@@ -51,9 +51,5 @@ export default function MainText() {
       ],
     },
   };
-  return (
-    <div>
-      <EChartsReact option={option} />
-    </div>
-  );
+  return <EChartsReact option={option} />;
 }
