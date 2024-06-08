@@ -4,9 +4,14 @@ import { makeDepsGraphLinkAndNode } from "@/app/(main)/dashboard/_utils/graph";
 
 const makeGraphChartOption = (depsData: any) => {
   const option = {
+    // title: {
+    //   text: "프로젝트 의존관계 그래프",
+    //   left: "center",
+    // },
     legend: {
       // data: ["HTMLElement", "WebGL", "SVG", "CSS", "Other"],
       data: depsData.categories,
+      right:0
     },
     series: [
       {
@@ -87,6 +92,7 @@ const GraphChart = ({ depsData }: Props) => {
 
   return (
     <div className="flex flex-col justify-center items-center">
+      <h1 className="font-semibold text-[20px]">프로젝트 의존성 그래프</h1>
       <ReactECharts
         className="w-[600px]"
         option={option}
