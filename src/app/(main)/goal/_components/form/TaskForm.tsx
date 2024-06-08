@@ -30,7 +30,7 @@ export default function TaskForm({
 
   return (
     <section className="fixed top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] p-10 rounded-xl border-4 border-black border-solid min-w-[50vw] min-h-[50vh] flex flex-col items-center bg-white select-none">
-      <h3 className="text-xl font-bold mb-12">목표를 만들어보세요</h3>
+      <h3 className="text-xl font-bold mb-12">목표를 수정/삭제해보세요</h3>
       <form
         className="flex-1 flex flex-col items-center justify-between w-[100%]"
         onSubmit={submitHandler}
